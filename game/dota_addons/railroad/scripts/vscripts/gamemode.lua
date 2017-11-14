@@ -152,7 +152,11 @@ function GameMode:ExampleConsoleCommand()
     local playerID = cmdPlayer:GetPlayerID()
     if playerID ~= nil and playerID ~= -1 then
       -- Do something here for the player who called this command
-      PlayerResource:ReplaceHeroWith(playerID, "npc_dota_hero_viper", 1000, 1000)
+      local hero = cmdPlayer:GetAssignedHero()
+      
+      for i=0,hero:GetModifierCount() do
+        print(hero:GetModifierNameByIndex(i), hero:GetModifierStackCount(hero:GetModifierNameByIndex(i), hero))
+      end
     end
   end
 

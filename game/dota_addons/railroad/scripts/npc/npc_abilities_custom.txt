@@ -1,3 +1,4 @@
+#base "railroad\abilities\wagon.txt"
 
 // Dota Abilities Override File
 "DOTAAbilities"

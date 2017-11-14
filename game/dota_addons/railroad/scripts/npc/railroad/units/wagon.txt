@@ -1,0 +1,51 @@
+"DOTAUnits"
+{
+  "Version" "1"
+  
+	"npc_wagon"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/wagon/wagon.vmdl"
+		"ModelScale"				"1.0"
+
+		"SoundSet"					"Tower.Fire"
+
+		"Level"						"10"
+		"IsSummoned"				"1"
+		"IsAncient"					"1"
+		"IsOther"					"1"
+		
+		"Ability1"					"railroad_wagon"
+		"Ability2"					""
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					""
+		"Ability6"					""
+		"Ability7"					""
+		"Ability8"					""
+
+		"ArmorPhysical"				"5"
+		"MagicalResistance"			"33"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+
+		"BountyXP"					"0"
+		"BountyGoldMin"				"0"
+		"BountyGoldMax"				"0"
+
+		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"
+		"HealthBarOffset"			"290"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"
+		"MovementSpeed"				"0"
+		"MovementTurnRate"			"0.0"
+
+		"StatusHealth"				"5000"
+		"StatusHealthRegen"			"0"
+		"StatusMana"				"0"
+		"StatusManaRegen"			"0"
+
+		"VisionDaytimeRange"		"800"
+		"VisionNighttimeRange"		"800"
+	}
+}

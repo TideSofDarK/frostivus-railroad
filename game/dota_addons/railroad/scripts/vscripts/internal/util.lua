@@ -1,3 +1,54 @@
+function GetSpecial( ability, name )
+  return ability:GetLevelSpecialValueFor(name,ability:GetLevel()-1)
+end
+
+function GetPathLength( path )
+  local length = 0
+  for i=1,#path do
+    if not path[i+1] then
+      return length
+    else
+      length = length + (path[i] - path[i+1]):Length2D()
+    end
+  end
+end
+
+function UnitLookAtPoint( unit, point, only_z, ignore_z )
+  local dir = (point - unit:GetAbsOrigin()):Normalized()
+  if only_z then
+    dir.x = unit:GetForwardVector().x
+    dir.y = unit:GetForwardVector().y
+  end
+  if ignore_z then
+    dir.z = 0
+  end
+  if dir == Vector(0,0,0) then return unit:GetForwardVector() end
+  return dir
+end
+
+function DoToUnitsInRadius( caster, position, radius, target_team, target_type, target_flags, action )
+  local units = FindUnitsInRadius(caster:GetTeamNumber(),position,nil,radius,target_team or DOTA_UNIT_TARGET_TEAM_ENEMY, target_type or DOTA_UNIT_TARGET_ALL, target_flags or DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, FIND_ANY_ORDER, false)
+
+  for k,v in pairs(units) do
+    action(v)
+  end
+
+  return units
+end
+
+function GetTableLength( t )
+  if not t then return 0 end
+  local length = 0
+
+  for k,v in pairs(t) do
+    if v then
+      length = length + 1
+    end
+  end
+
+  return length
+end
+
 function DebugPrint(...)
   local spew = Convars:GetInt('barebones_spew') or -1
   if spew == -1 and BAREBONES_DEBUG_SPEW then
