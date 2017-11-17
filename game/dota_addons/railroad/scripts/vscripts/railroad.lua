@@ -208,7 +208,7 @@ function OnSnowballAttacked( keys )
 
 	local offset = 100
 
-	local initial = ball:GetAbsOrigin()
+	ball.initial = ball:GetAbsOrigin()
 	local target = GetGroundPosition(ball:GetAbsOrigin() + Vector(0, -700, 0), ball) + Vector(0, 0, offset)
 
 	Physics:Unit(ball)
@@ -218,7 +218,7 @@ function OnSnowballAttacked( keys )
 	ball:SetBounceMultiplier(1.2)
 	ball:SetNavCollisionType (PHYSICS_NAV_NOTHING)
 
-	local direction = target - initial
+	local direction = target - ball.initial
 	direction = direction:Normalized()
 
 	ball:AddPhysicsVelocity((direction * 750) + Vector(0,0,1500))
@@ -259,10 +259,6 @@ function OnSnowballAttacked( keys )
 			ball:RemoveModifierByName("modifier_snowball_onattacked")
 		end
 	end)
-
-	-- Timers:CreateTimer(12.0, function (  )
-	-- 	ball:RemoveSelf()
-	-- end)
 end
 
 function OnSnowballDead( keys )
@@ -271,4 +267,14 @@ function OnSnowballDead( keys )
 
 	ball:RemoveCollider()
 	ball:StopPhysicsSimulation()
+
+	Timers:CreateTimer(5 * 60, function (  )
+		local ball = CreateUnitByName("npc_snowball", ball.initial, false, caster, caster, ball:GetTeamNumber())
+
+		if ball:GetTeamNumber() == 3 then
+			ball:SetTeam(2)
+		else
+			ball:SetTeam(3)
+		end
+	end)
 end
