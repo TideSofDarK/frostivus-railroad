@@ -3,6 +3,8 @@
 require('internal/util')
 require('gamemode')
 
+RegisterCustomAnimationScriptForModel("models/particle/snowball.vmdl", "animation/snowball.lua")
+
 function Precache( context )
 --[[
   This function is used to precache resources/units/items/abilities that will be needed

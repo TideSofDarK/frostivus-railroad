@@ -111,74 +111,164 @@ function Wagon( keys )
 		ParticleManager:SetParticleControlEnt(caster.area, 0, caster,PATTACH_POINT_FOLLOW,"attach_hitloc",caster:GetAbsOrigin(),false)
 		ParticleManager:SetParticleControl(caster.area, 2, Vector(128,0,0))
 	end
-	
-	local units = DoToUnitsInRadius( caster, caster:GetAbsOrigin(), GetSpecial(ability, "radius"), DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, function ( v )
-		ParticleManager:SetParticleControl(caster.area, 2, Vector(0,128,0))
+	local units = FindUnitsInRadius(caster:GetTeamNumber(),caster:GetAbsOrigin(),nil,GetSpecial(ability, "radius"),DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_INVULNERABLE, FIND_ANY_ORDER, false)
+	local teams = {}
+	for k,v in pairs(units) do
+		teams[v:GetTeam()] = true
+		if v:GetUnitName() == "npc_snowball" or teams[2] and teams[3] then
+			units = {}
+			break
+		end
+	end
+	for k,v in pairs(units) do
+		if v:IsRealHero() then
+			ParticleManager:SetParticleControl(caster.area, 2, Vector(0,128,0))
 
-		-- CustomNetTables:SetTableValue( "scenario", "wagon", {percentage = percentage} )
-		local team = v:GetTeamNumber()
-		local team_modifier = 1
-		if team == 3 then team_modifier = -1 end
+			-- CustomNetTables:SetTableValue( "scenario", "wagon", {percentage = percentage} )
+			local team = v:GetTeamNumber()
+			local team_modifier = 1
+			if team == 3 then team_modifier = -1 end
 
-		local movement = Timers:CreateTimer(0.0, function ()
-			local position = caster:GetAbsOrigin()
-			 
-			local distance_traveled = 0
-			local distance_to_travel = WAGON_SPEED
-			 
-			local new_position = position
-			 
-			while distance_traveled < distance_to_travel do
-			    if #caster.path < caster.path_point + team_modifier then
-			        break
-			    end
-				
-			    local next_point
+			local movement = Timers:CreateTimer(0.0, function ()
+				local position = caster:GetAbsOrigin()
+				 
+				local distance_traveled = 0
+				local distance_to_travel = WAGON_SPEED
+				 
+				local new_position = position
+				 
+				while distance_traveled < distance_to_travel do
+				    if #caster.path < caster.path_point + team_modifier then
+				        break
+				    end
+					
+				    local next_point
 
-			    if team == 3 then
-			    	next_point = GetGroundPosition(caster.path[caster.path_point],caster)	
-			    else
-			    	next_point = GetGroundPosition(caster.path[caster.path_point + team_modifier],caster)	
-			    end
+				    if team == 3 then
+				    	next_point = GetGroundPosition(caster.path[caster.path_point],caster)	
+				    else
+				    	next_point = GetGroundPosition(caster.path[caster.path_point + team_modifier],caster)	
+				    end
 
-			    local ignore_z = (team == 3 and caster.path[caster.path_point].z == caster.path[caster.path_point + 1].z) or (team == 2 and caster.path[caster.path_point + team_modifier].z == caster.path[caster.path_point].z)
-			    local look_at_target = UnitLookAtPoint( caster, next_point, true, ignore_z )
-			    look_at_target.z = look_at_target.z * team_modifier
-			    caster:SetForwardVector(LerpVectors(caster:GetForwardVector(), look_at_target, 0.03 * 10))
+				    local ignore_z = (team == 3 and caster.path[caster.path_point].z == caster.path[caster.path_point + 1].z) or (team == 2 and caster.path[caster.path_point + team_modifier].z == caster.path[caster.path_point].z)
+				    local look_at_target = UnitLookAtPoint( caster, next_point, true, ignore_z )
+				    look_at_target.z = look_at_target.z * team_modifier
+				    caster:SetForwardVector(LerpVectors(caster:GetForwardVector(), look_at_target, 0.03 * 10))
 
-			    local direction_to_next_point = (next_point - new_position):Normalized()
-			    local distance_to_next_point  = (new_position - next_point):Length2D()
-			    local distance_left_to_travel = distance_to_travel - distance_traveled
-			   
-			    local step_distance = math.min(distance_left_to_travel, distance_to_next_point)
-			   
-			    if step_distance == 0 then
-			        break
-			    end
-			   
-			    new_position = (step_distance * direction_to_next_point) + new_position
+				    local direction_to_next_point = (next_point - new_position):Normalized()
+				    local distance_to_next_point  = (new_position - next_point):Length2D()
+				    local distance_left_to_travel = distance_to_travel - distance_traveled
+				   
+				    local step_distance = math.min(distance_left_to_travel, distance_to_next_point)
+				   
+				    if step_distance == 0 then
+				        break
+				    end
+				   
+				    new_position = (step_distance * direction_to_next_point) + new_position
 
-			    if step_distance == distance_to_next_point then
-			        caster.path_point = caster.path_point + team_modifier
-			    end
-			   
-			    distance_traveled = distance_traveled + step_distance
-			    caster.path_traveled = caster.path_traveled + step_distance
-			end
-			 
-			new_position.z = GetGroundHeight(new_position,caster)
-			 
-			caster:SetAbsOrigin(new_position)
-			 
-			return 0.03
-		end)
+				    if step_distance == distance_to_next_point then
+				        caster.path_point = caster.path_point + team_modifier
+				    end
+				   
+				    distance_traveled = distance_traveled + step_distance
+				    caster.path_traveled = caster.path_traveled + step_distance
+				end
+				 
+				new_position.z = GetGroundHeight(new_position,caster)
+				 
+				caster:SetAbsOrigin(new_position)
+				 
+				return 0.03
+			end)
 
-		Timers:CreateTimer(0.47, function (  )
-			Timers:RemoveTimer(movement)
-		end)
-	end )
+			Timers:CreateTimer(0.47, function (  )
+				Timers:RemoveTimer(movement)
+			end)
+		end
+	end
 
 	if #units == 0 then
 		ParticleManager:SetParticleControl(caster.area, 2, Vector(128,0,0))
 	end
+end
+
+function SpawnBall(keys)
+	local caster = keys.caster
+	local ability = keys.ability
+
+	local offset = 100
+
+	local ball = CreateUnitByName("npc_snowball", caster:GetAbsOrigin() + Vector(0,0,offset), false, caster, caster, 3)
+end
+
+function OnSnowballAttacked( keys )
+	local ball = keys.caster
+	local ability = keys.ability
+
+	local offset = 100
+
+	local initial = ball:GetAbsOrigin()
+	local target = GetGroundPosition(ball:GetAbsOrigin() + Vector(0, -700, 0), ball) + Vector(0, 0, offset)
+
+	Physics:Unit(ball)
+
+	ball:SetPhysicsFriction (0.05,0.05)
+
+	ball:SetBounceMultiplier(1.2)
+	ball:SetNavCollisionType (PHYSICS_NAV_NOTHING)
+
+	local direction = target - initial
+	direction = direction:Normalized()
+
+	ball:AddPhysicsVelocity((direction * 750) + Vector(0,0,1500))
+	ball:SetPhysicsAcceleration(Vector(0,0,-1400))
+
+	ball.collider = ball:AddColliderFromProfile("blocker")
+  	ball.collider.radius = 128
+  	-- collider.draw = {color = Vector(200,200,200), alpha = 5}
+
+  	ball.collider.test = function(self, collider, collided)
+    	return IsPhysicsUnit(collided) or (collided.IsRealHero and collided:IsRealHero()) or (collided.GetUnitName and collided:GetUnitName() == "npc_wagon")
+  	end
+  	ball.collider.postaction = function(self, collider, collided)
+    	print("post: " .. collided:GetName() .. " -- " .. VectorDistance(collider:GetAbsOrigin(), collided:GetAbsOrigin()))
+  	end
+
+	StartSoundEvent("Hero_Tusk.Snowball.Loop", ball)
+
+	local i = 0
+	ball:OnPhysicsFrame(function(unit)
+		local distance = (target - unit:GetAbsOrigin()):Length()
+		i = i + 9
+		ball:SetAngles(0, i, i)
+		if ball:GetAbsOrigin().z <= target.z then
+			ball:SetPhysicsAcceleration(Vector(0,0,0))
+			ball:SetPhysicsVelocity(Vector(0,0,0))
+			ball:OnPhysicsFrame(nil)
+			StopSoundEvent("Hero_Tusk.Snowball.Loop", ball)
+			EmitSoundOn("Hero_Tusk.Snowball.ProjectileHit", ball)
+
+			if ball:GetTeamNumber() == 3 then
+				ball:SetTeam(2)
+			else
+				ball:SetTeam(3)
+			end
+
+			ball:RemoveModifierByName("modifier_invulnerable")
+			ball:RemoveModifierByName("modifier_snowball_onattacked")
+		end
+	end)
+
+	-- Timers:CreateTimer(12.0, function (  )
+	-- 	ball:RemoveSelf()
+	-- end)
+end
+
+function OnSnowballDead( keys )
+	local ball = keys.caster
+	local ability = keys.ability
+
+	ball:RemoveCollider()
+	ball:StopPhysicsSimulation()
 end
