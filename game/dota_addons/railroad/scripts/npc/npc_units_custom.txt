@@ -1,4 +1,5 @@
 #base "railroad\units\wagon.txt"
+#base "railroad\units\greevils.txt"
 
 // Dota Units File
 "DOTAUnits"
@@ -117,4 +118,8 @@
         "TeamName"                  "DOTA_TEAM_GOODGUYS"
     }
 
+    "wearable_model"
+    {
+        "BaseClass"     "npc_dota_creature"
+    }
 }

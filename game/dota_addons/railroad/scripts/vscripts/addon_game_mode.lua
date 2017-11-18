@@ -4,6 +4,7 @@ require('internal/util')
 require('gamemode')
 
 RegisterCustomAnimationScriptForModel("models/particle/snowball.vmdl", "animation/snowball.lua")
+RegisterCustomAnimationScriptForModel("models/courier/greevil/greevil.vmdl", "animation/greevil.lua")
 
 function Precache( context )
 --[[

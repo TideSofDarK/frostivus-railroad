@@ -32,6 +32,10 @@ require('libraries/modmaker')
 require('libraries/pathgraph')
 -- This library (by Noya) provides player selection inspection and management from server lua
 require('libraries/selection')
+-- This library allow for easily accessing KV files
+require('libraries/keyvalues')
+
+require('libraries/wearables')
 
 -- These internal libraries set up barebones's events and processes.  Feel free to inspect them/change them if you need to.
 require('internal/gamemode')
