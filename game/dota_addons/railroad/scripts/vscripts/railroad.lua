@@ -197,9 +197,15 @@ function SpawnBall(keys)
 	local caster = keys.caster
 	local ability = keys.ability
 
-	local offset = 100
+	-- local offset = 100
 
-	local ball = CreateUnitByName("npc_snowball", caster:GetAbsOrigin() + Vector(0,0,offset), false, caster, caster, 3)
+	-- local ball = CreateUnitByName("npc_snowball", caster:GetAbsOrigin() + Vector(0,0,offset), false, caster, caster, 3)
+
+	local rangeParticle = ParticleManager:CreateParticle("particles/bucket_range.vpcf", PATTACH_ABSORIGIN, caster)
+	ParticleManager:SetParticleControlEnt(rangeParticle, 2, caster, PATTACH_ABSORIGIN_FOLLOW, "attach_origin", caster:GetAbsOrigin(), true)
+	ParticleManager:SetParticleControl(rangeParticle, 3, Vector(450, 1, 1))
+	ParticleManager:SetParticleControl(rangeParticle, 4, Vector(55, 255, 55))
+	-- ParticleManager:ReleaseParticleIndex(rangeParticle)
 end
 
 function OnSnowballAttacked( keys )
@@ -277,4 +283,56 @@ function OnSnowballDead( keys )
 			ball:SetTeam(3)
 		end
 	end)
+end
+
+function OnBucketSpawned( keys )
+	local caster = keys.caster
+	local ability = keys.ability
+
+	local function CreateParticle(team)
+		local rangeParticle = ParticleManager:CreateParticleForTeam("particles/bucket_range.vpcf", PATTACH_ABSORIGIN, caster, team)
+		ParticleManager:SetParticleControlEnt(rangeParticle, 2, caster, PATTACH_ABSORIGIN_FOLLOW, "attach_origin", caster:GetAbsOrigin(), true)
+		ParticleManager:SetParticleControl(rangeParticle, 3, Vector(ability:GetAbilitySpecial("radius"), 1, 1))
+		ParticleManager:SetParticleControl(rangeParticle, 4, Vector(255, 255, 255))
+		return rangeParticle
+	end
+
+	Timers:CreateTimer(5.0, function (  )
+		caster.particles = {CreateParticle(2), CreateParticle(3)}
+		caster.progress = 0
+	end)
+end
+
+function OnBucketThink( keys )
+	local caster = keys.caster
+	local ability = keys.ability
+
+	if caster.particles then
+
+		local radius = ability:GetAbilitySpecial("radius")
+
+		local units = FindUnitsInRadius( caster:GetTeam(), caster:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, FIND_ANY_ORDER, false )
+		local teams = {}
+		for _,v in pairs(units) do
+			teams[v:GetTeamNumber()] = true
+		end
+		if teams[2] and teams[3] then
+
+		elseif teams[2] then
+			caster.progress = math.min(caster.progress + 0.2, 1.0)
+		elseif teams[3] then
+			caster.progress = math.max(caster.progress - 0.2, -1.0)
+		end
+
+		local color = math.ceil(math.abs(caster.progress) * 255)
+		local color_b = 255 - color
+
+		if caster.progress >= 0 then
+			ParticleManager:SetParticleControl(caster.particles[1], 4, Vector(color_b, 255, color_b))
+			ParticleManager:SetParticleControl(caster.particles[2], 4, Vector(255, color_b, color_b))
+		else
+			ParticleManager:SetParticleControl(caster.particles[1], 4, Vector(255, color_b, color_b))
+			ParticleManager:SetParticleControl(caster.particles[2], 4, Vector(color_b, 255, color_b))
+		end
+	end
 end
