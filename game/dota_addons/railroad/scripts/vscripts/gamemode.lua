@@ -52,6 +52,8 @@ if GetMapName() == "playground" then
   require("examples/playground")
 end
 
+LinkLuaModifier( "modifier_out_of_game", "libraries/modifiers/modifier_out_of_game.lua", LUA_MODIFIER_MOTION_NONE )
+
 --require("examples/worldpanelsExample")
 
 --[[
@@ -144,6 +146,8 @@ function GameMode:InitGameMode()
 
   -- Commands can be registered for debugging purposes or as functions that can be called by the custom Scaleform UI
   Convars:RegisterCommand( "command_example", Dynamic_Wrap(GameMode, 'ExampleConsoleCommand'), "A console command example", FCVAR_CHEAT )
+
+  GameMode.EggsKVs = LoadKeyValues("scripts/kv/greevils.kv")
 
   DebugPrint('[BAREBONES] Done loading Barebones gamemode!\n\n')
 end

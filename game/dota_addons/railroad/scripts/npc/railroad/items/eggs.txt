@@ -1,0 +1,30 @@
+"DOTAAbilities"
+{
+	"item_ice_egg"
+	{
+	    "ID"    "1108"
+	    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+	    "BaseClass"           "item_datadriven"
+	    "AbilityTextureName"      "item_enchanted_mango"
+	    "Model"                   "models/eggs/ice_egg.vmdl"
+	    "Effect"                  "particles/generic_gameplay/dropped_item.vpcf"
+
+		"ItemInitialCharges" "1"
+		"ItemStackable"         "1"
+		"ItemPermanent"         "0"
+
+	    "MaxUpgradeLevel"       "1"
+	    "ItemBaseLevel"         "1"
+
+		"OnSpellStart"
+		{     
+			"RunScript"
+			{
+				"ScriptFile"	"railroad.lua"
+				"Function"		"EatEgg"
+			}
+			"SpendCharge"
+			{}
+		}
+	}
+}

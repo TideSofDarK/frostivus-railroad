@@ -336,3 +336,58 @@ function OnBucketThink( keys )
 		end
 	end
 end
+
+function EatEgg( keys )
+	local caster = keys.caster
+	local ability = keys.ability
+
+	local kv = GameMode.EggsKVs[ability:GetName()]
+
+	caster:AddNewModifier(caster, ability, "modifier_invulnerable", {})
+	local particle = ParticleManager:CreateParticle("particles/units/unit_greevil/greevil_transformation.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
+
+	caster:EmitSound("Item.GreevilWhistle")
+
+	Timers:CreateTimer(1.5, function (  )
+		caster:RemoveModifierByName("modifier_invulnerable")
+		caster:AddNewModifier(caster, ability, "modifier_out_of_game", {})
+		caster:AddNoDraw()
+
+		local unit = CreateUnitByName(kv.Unit, caster:GetAbsOrigin(), false, nil, caster, caster:GetTeamNumber())
+		unit:SetControllableByPlayer(caster:GetPlayerOwnerID(), true)
+
+		for k,v in pairs(kv.Abilities) do
+			local ab = unit:AddAbility(v)
+			ab:SetLevel(1)
+			ab:SetHidden(false)
+		end
+
+		PlayerResource:NewSelection(caster:GetPlayerOwnerID(), unit:GetEntityIndex())
+		caster:SetSelectionOverride(unit)
+
+		unit:AddNewModifier(caster, ability, "modifier_kill", {duration = 5})
+		Timers:CreateTimer(function()
+			if IsValidEntity(unit) then
+				if unit:GetHealth() <= 0 then
+					-- StartAnimation(unit, {duration=1.5, activity=ACT_DOTA_DISABLED, rate=1.0, translate="level_1"})
+					unit:StartGesture(ACT_DOTA_DISABLED)
+					local particle = ParticleManager:CreateParticle("particles/units/unit_greevil/greevil_transformation.vpcf", PATTACH_ABSORIGIN_FOLLOW, unit)
+
+					caster:EmitSound("Item.GreevilWhistle.Return")
+
+					Timers:CreateTimer(1.5, function (  )
+						PlayerResource:SetDefaultSelectionEntity(caster:GetPlayerOwnerID(), caster)
+						caster:SetSelectionOverride(-1)
+						caster:SetAbsOrigin(unit:GetAbsOrigin())
+						caster:RemoveModifierByName("modifier_out_of_game")
+						caster:RemoveNoDraw()
+
+						unit:RemoveSelf()
+					end)
+				else
+					return 0.03
+				end
+			end
+		end)
+	end)
+end

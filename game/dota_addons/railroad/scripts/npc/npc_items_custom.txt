@@ -1,3 +1,5 @@
+#base "railroad\items\eggs.txt"
+
 "DOTAAbilities"
 {
   "item_containers_lua_pack"
