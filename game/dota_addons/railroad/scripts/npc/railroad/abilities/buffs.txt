@@ -16,6 +16,11 @@
         "var_type"      "FIELD_INTEGER"
         "ability1"        "1 2 3 4"
       }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
     }
   }
 
@@ -31,7 +36,349 @@
       "01"
       {
         "var_type"      "FIELD_INTEGER"
-        "ability1"        "1 2 3 4"
+        "ability2"        "1 2 3 4"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
+    }
+  }
+
+  "buff_Ability3"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "ability3"        "1 2 3 4"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
+    }
+  }
+  "buff_Ability4"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "ability4"        "1 2 3 4"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
+    }
+  }
+  "buff_Ability5"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "ability5"        "1 2 3 4"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
+    }
+  }
+  "buff_Ability6"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "ability6"        "1 2 3 4"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
+    }
+  }
+  "buff_Damage"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "damage"        "25 50 75 100"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
+    }
+  }
+  "buff_AttackSpeed"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "attackspeed"        "25 50 75 100"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
+    }
+  }
+  "buff_Lifesteal"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "lifesteal"        "25 50 75 100"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
+    }
+  }
+  "buff_Health"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "health"        "25 50 75 100"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
+    }
+  }
+  "buff_HealthRegen"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "healthregen"        "25 50 75 100"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
+    }
+  }
+  "buff_Armour"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "armour"        "25 50 75 100"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
+    }
+  }
+  "buff_SpellAmplify"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "spellamplify"        "25 50 75 100"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
+    }
+  }
+  "buff_CDR"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cdr"        "25 50 75 100"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
+    }
+  }
+  "buff_SpellLifesteal"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "spelllifesteal"        "25 50 75 100"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
+    }
+  }
+  "buff_Manacost"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "manacost"        "25 50 75 100"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
+    }
+  }
+  "buff_MagicRes"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "magicres"        "25 50 75 100"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
+      }
+    }
+  }
+  "buff_ManaRegen"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "manaregen"        "25 50 75 100"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "cost"        "300 500 700 1000"
       }
     }
   }
