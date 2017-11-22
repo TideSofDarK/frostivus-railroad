@@ -71,7 +71,8 @@
 	text-align: right;
 	text-align: center;
 	margin-top: 5px;
-	min-width: 60px;
+	min-width: 40px;
+	/*margin-right: 5px;*/
 	vertical-align: center;
 	horizontal-align: center;
 	width: 100%;

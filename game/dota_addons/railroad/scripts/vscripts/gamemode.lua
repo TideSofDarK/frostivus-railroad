@@ -121,6 +121,7 @@ function GameMode:OnHeroInGame(hero)
   for k,v in pairs(GameMode.BuffsKVs) do
    hero.buff_dummy:AddAbility(k)
    print(k)
+   CustomNetTables:SetTableValue("players", tostring(hero:GetPlayerOwnerID()), {buff_dummy = hero.buff_dummy:GetEntityIndex(), candies = 0})
   end
 
   --[[ --These lines if uncommented will replace the W ability of any hero that loads into the game
