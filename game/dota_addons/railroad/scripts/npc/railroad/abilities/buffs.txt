@@ -1,0 +1,38 @@
+"DOTAAbilities"
+{
+  "Version"   "1"
+
+  "buff_Ability1"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "ability1"        "1 2 3 4"
+      }
+    }
+  }
+
+  "buff_Ability2"
+  {
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"           "ability_datadriven"
+    "MaxLevel" "4"
+    "AbilityTextureName"      "rubick_empty1"
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "ability1"        "1 2 3 4"
+      }
+    }
+  }
+}

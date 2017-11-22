@@ -1,0 +1,56 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="s2r://panorama/styles/play.vcss_c" />
+		<include src="s2r://panorama/styles/dashboard_page_profile.vcss_c" />
+		<include src="file://{resources}/styles/upgrade_panel.css" />
+	</styles>
+	<scripts>
+	    <include src="file://{resources}/scripts/upgrade_panel.js" /> 
+	</scripts>
+	<Panel class="UpgradePanelRoot" hittest="false">
+		<Panel id="ButtonRoot" hittest="false">
+			<Panel id="ButtonRootBG" hittest="false"/>
+			<Button id="UpgradePanelButton" onactivate='Toggle()' hittest="true">
+				<Label text="UPGRADE" class="ValueLabel"/>
+			</Button>		
+		</Panel>
+		<Panel id="UpgradePanelDisplay" class="UpgradePanelHidden" hittest="false">	
+			<Panel id="CandyCountBG" hittest="false">
+				<Label id="CreditsLabel" text="BALANCE" class="ValueLabel" style="color: white;"/>
+				<Panel id="ImageAndCount" hittest="false">
+					<Panel id="CandyImage" hittest="true"/>
+					<Label id="CandyCount" text="54" class="ValueLabel" style="color: white;"/>
+				</Panel>
+			</Panel>
+			<Label id="Tip" text="Gather candies and spend them as power-ups" class="ValueLabel" style="color: white;"/>
+			<Panel id="Rows" hittest="false">
+				<Panel class="Row" id="Row1" hittest="false">
+					<Panel class="Cell" id="CellAbility1" onactivate='ClickAbility1()' hittest="true"/>
+					<Panel class="Cell" id="CellAbility2" onactivate='ClickAbility2()' hittest="true"/>
+					<Panel class="Cell" id="CellAbility3" onactivate='ClickAbility3()' hittest="true"/>
+					<Panel class="Cell" id="CellAbility4" onactivate='ClickAbility4()' hittest="true"/>
+					<Panel class="Cell" id="CellAbility5" onactivate='ClickAbility5()' hittest="true"/>
+					<Panel class="Cell" id="CellAbility6" onactivate='ClickAbility6()' hittest="true"/>
+				</Panel>
+				<Panel class="Row" id="Row2" hittest="false">
+					<Panel class="Cell" id="CellDamage" onactivate='ClickDamage()' hittest="true"/>
+					<Panel class="Cell" id="CellAttackSpeed" onactivate='ClickAttackSpeed()' hittest="true"/>
+					<Panel class="Cell" id="CellLifesteal" onactivate='ClickLifesteal()' hittest="true"/>
+					<Panel class="Cell" id="CellHealth" onactivate='ClickHealth()' hittest="true"/>
+					<Panel class="Cell" id="CellHealthRegen" onactivate='ClickHealthRegen()' hittest="true"/>
+					<Panel class="Cell" id="CellArmour" onactivate='ClickArmour()' hittest="true"/>
+				</Panel>
+				<Panel class="Row" id="Row3" hittest="false">
+					<Panel class="Cell" id="CellSpellAmplify" onactivate='ClickSpellAmplify()' hittest="true"/>
+					<Panel class="Cell" id="CellCDR" onactivate='ClickCDR()' hittest="true"/>
+					<Panel class="Cell" id="CellSpellLifesteal" onactivate='ClickSpellLifesteal()' hittest="true"/>
+					<Panel class="Cell" id="CellManacost" onactivate='ClickManacost()' hittest="true"/>
+					<Panel class="Cell" id="CellMagicRes" onactivate='ClickMagicRes()' hittest="true"/>
+					<Panel class="Cell" id="CellManaRegen" onactivate='ClickManaRegen()' hittest="true"/>
+				</Panel>
+			</Panel>
+			<DOTAScenePanel id="Greevil" particleonly='false' map='greevil' camera='camera'/> "
+		</Panel>
+	</Panel>
+</root>

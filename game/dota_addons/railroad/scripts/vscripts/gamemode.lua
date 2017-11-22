@@ -53,6 +53,9 @@ if GetMapName() == "playground" then
 end
 
 LinkLuaModifier( "modifier_out_of_game", "libraries/modifiers/modifier_out_of_game.lua", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_universal_buff", "libraries/modifiers/modifier_universal_buff.lua", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_command_restricted", "libraries/modifiers/modifier_command_restricted.lua", LUA_MODIFIER_MOTION_NONE )
+
 
 --require("examples/worldpanelsExample")
 
@@ -113,6 +116,13 @@ function GameMode:OnHeroInGame(hero)
   local item = CreateItem("item_example_item", hero, hero)
   hero:AddItem(item)
 
+  hero.buff_dummy = CreateUnitByName("npc_dummy_unit", Vector(25000, 25000, 25000), true, nil, hero, hero:GetTeam())
+
+  for k,v in pairs(GameMode.BuffsKVs) do
+   hero.buff_dummy:AddAbility(k)
+   print(k)
+  end
+
   --[[ --These lines if uncommented will replace the W ability of any hero that loads into the game
     --with the "example_ability" ability
 
@@ -148,8 +158,33 @@ function GameMode:InitGameMode()
   Convars:RegisterCommand( "command_example", Dynamic_Wrap(GameMode, 'ExampleConsoleCommand'), "A console command example", FCVAR_CHEAT )
 
   GameMode.EggsKVs = LoadKeyValues("scripts/kv/greevils.kv")
+  GameMode.BuffsKVs = LoadKeyValues("scripts/npc/railroad/abilities/buffs.txt")
 
-  DebugPrint('[BAREBONES] Done loading Barebones gamemode!\n\n')
+  for i=0,9 do
+    local buff_array = {}
+    buff_array.ability1 = 0
+    buff_array.ability2 = 0
+    buff_array.ability3 = 0
+    buff_array.ability4 = 0
+    buff_array.ability5 = 0
+    buff_array.ability6 = 0
+
+    buff_array.lifesteal = 0
+    buff_array.spell_lifesteal = 0
+    buff_array.hp_regen = 0
+    buff_array.hp = 0
+    buff_array.mp_regen = 0
+    buff_array.manacost = 0
+    buff_array.damage = 0
+    buff_array.spell_amplify = 0
+    buff_array.armour = 0
+    buff_array.magic_res = 0
+    buff_array.cdr = 0
+    buff_array.as = 0
+    CustomNetTables:SetTableValue("universal_buff", tostring(i), buff_array)
+  end
+  
+  GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( GameMode, "DamageFilter" ), self )
 end
 
 -- This is an example console command
@@ -169,4 +204,32 @@ function GameMode:ExampleConsoleCommand()
   end
 
   print( '*********************************************' )
+end
+
+function GameMode:DamageFilter( filter_table )
+    local victim = EntIndexToHScript(filter_table["entindex_victim_const"])
+
+    local attacker = filter_table["entindex_attacker_const"]
+    if attacker then
+      attacker = EntIndexToHScript(attacker)
+    end
+    
+    local damage = filter_table["damage"]
+    local damage_type = filter_table["damagetype_const"]
+
+    if not attacker:IsRealHero() and string.match(attacker:GetUnitName(), "greevil_hero") then
+      local spell_lifesteal = CustomNetTables:GetTableValue("universal_buff", tostring(attacker:GetPlayerOwnerID())).spell_lifesteal
+      local lifesteal = CustomNetTables:GetTableValue("universal_buff", tostring(attacker:GetPlayerOwnerID())).lifesteal
+      if damage_type == DAMAGE_TYPE_MAGICAL and spell_lifesteal > 0 then
+        local nFXIndex = ParticleManager:CreateParticle( "particles/items3_fx/octarine_core_lifesteal.vpcf", PATTACH_ABSORIGIN_FOLLOW, attacker )
+        ParticleManager:ReleaseParticleIndex( nFXIndex )
+        attacker:Heal((spell_lifesteal / 100) * damage, nil)
+      elseif damage_type == DAMAGE_TYPE_PHYSICAL and lifesteal > 0 then
+        local nFXIndex = ParticleManager:CreateParticle( "particles/generic_gameplay/generic_lifesteal.vpcf", PATTACH_ABSORIGIN_FOLLOW, attacker )
+        ParticleManager:ReleaseParticleIndex( nFXIndex )
+        attacker:Heal((lifesteal / 100) * damage, nil)
+      end
+    end
+
+    return true
 end

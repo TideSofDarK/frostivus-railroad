@@ -4,5 +4,6 @@
   [
     "containers_lua",
     "selection",
+    "universal_buff",
   ]
 }

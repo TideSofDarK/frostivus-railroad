@@ -344,17 +344,22 @@ function EatEgg( keys )
 	local kv = GameMode.EggsKVs[ability:GetName()]
 
 	caster:AddNewModifier(caster, ability, "modifier_invulnerable", {})
+	caster:AddNewModifier(caster, ability, "modifier_command_restricted", {})
+
 	local particle = ParticleManager:CreateParticle("particles/units/unit_greevil/greevil_transformation.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
 
 	caster:EmitSound("Item.GreevilWhistle")
 
 	Timers:CreateTimer(1.5, function (  )
 		caster:RemoveModifierByName("modifier_invulnerable")
+		caster:RemoveModifierByName("modifier_command_restricted")
 		caster:AddNewModifier(caster, ability, "modifier_out_of_game", {})
 		caster:AddNoDraw()
 
 		local unit = CreateUnitByName(kv.Unit, caster:GetAbsOrigin(), false, nil, caster, caster:GetTeamNumber())
 		unit:SetControllableByPlayer(caster:GetPlayerOwnerID(), true)
+
+		unit:AddNewModifier(caster, ability, "modifier_universal_buff", {})
 
 		for k,v in pairs(kv.Abilities) do
 			local ab = unit:AddAbility(v)
