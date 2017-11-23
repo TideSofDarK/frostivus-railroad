@@ -189,7 +189,7 @@
 			{}
 		}
 	}
-		"item_black_egg"
+	"item_black_egg"
 	{
 	    "ID"    "1115"
 	    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
