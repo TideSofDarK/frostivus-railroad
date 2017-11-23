@@ -1,7 +1,14 @@
 if Railroad == nil then
     _G.Railroad = class({})
+end
 
+function Railroad:Init()
     CustomGameEventManager:RegisterListener( "frostivus_upgrade", Dynamic_Wrap(Railroad, 'OnUpgrade'))
+
+    Railroad.RICH_GREEVIL_WAYPOINTS = {}
+    for i=1,7 do
+    	table.insert(Railroad.RICH_GREEVIL_WAYPOINTS, Entities:FindByName(nil, "rich_greevil_waypoint_"..tostring(i)):GetAbsOrigin())
+    end
 end
 
 function Railroad:OnUpgrade(keys)
@@ -41,6 +48,91 @@ function Railroad:OnUpgrade(keys)
 			end
 		end
 	end
+end
+
+function Railroad:GiveCandiesToTeam(team, candies, particle)
+	for playerID = 0, DOTA_MAX_PLAYERS do
+      	if PlayerResource:IsValidPlayerID(playerID) then
+        	if not PlayerResource:IsBroadcaster(playerID) then
+        		if PlayerResource:GetTeam(playerID) == team then
+			      	local hero = GameMode.assignedPlayerHeroes[playerID] 
+			      	if IsValidEntity(hero) == true then
+			        	local old_data = CustomNetTables:GetTableValue("players", tostring(playerID))
+
+			        	old_data.candies = old_data.candies + candies
+
+			        	CustomNetTables:SetTableValue("players", tostring(playerID), old_data)
+
+			        	if particle then PopupParticle(candies, Vector(200,60,55), 1.0, hero, POPUP_SYMBOL_PRE_PLUS) end
+			      	end
+        		end
+        	end
+      	end
+    end
+end
+
+function Railroad:SpawnRichGreevil()
+	if IsValidEntity(Railroad.rich_greevil) then
+		Railroad.rich_greevil:RemoveSelf()
+	end
+	Railroad.rich_greevil = CreateUnitByName("npc_rich_greevil", Railroad.RICH_GREEVIL_WAYPOINTS[1], true, nil, nil, DOTA_TEAM_NEUTRALS)
+
+	local point = 1
+	Timers:CreateTimer(function()
+		if not IsValidEntity(Railroad.rich_greevil) then
+			return
+		end
+		if Railroad.rich_greevil:IsIdle() then
+			point = point + 1
+			if point > 7 then
+				point = 1
+			end
+			Railroad.rich_greevil:MoveToPosition(Railroad.RICH_GREEVIL_WAYPOINTS[point])
+		else
+			
+		end
+		return 0.1
+	end)
+end
+
+function OnRichGreevilAttacked( keys )
+	local caster = keys.caster
+	local ability = keys.ability
+
+	if ability:IsCooldownReady() then
+		local new_item = CreateItem("item_rich_candy", caster, caster)
+		local container = CreateItemOnPositionForLaunch(caster:GetAbsOrigin(), new_item):GetContainedItem():LaunchLoot(false, 120, 1.0, GetGroundPosition(Vector(math.random(-100, 100), math.random(-100, 100), 0) + caster:GetAbsOrigin(), caster))
+		new_item:GetContainer():SetRenderColor(math.random(25, 250), math.random(25, 250), math.random(25, 250))
+		new_item:EmitSound("ui.inv_drop_highvalue")
+		ability:StartCooldown(1)
+
+		local p = ParticleManager:CreateParticle("particles/hw_fx/hw_rosh_death_candy.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
+		ParticleManager:ReleaseParticleIndex(p)
+	end
+end
+
+function OnRichGreevilDead( keys )
+	local caster = keys.caster
+	local ability = keys.ability
+	local attacker = keys.attacker
+
+	local pos = caster:GetAbsOrigin()
+
+	Timers:CreateTimer(4.5, function (  )
+		local p = ParticleManager:CreateParticle("particles/rich_greevil_death.vpcf", PATTACH_CUSTOMORIGIN, attacker)
+		ParticleManager:SetParticleControl(p, 0, pos)
+		ParticleManager:SetParticleControl(p, 3, pos)
+		ParticleManager:ReleaseParticleIndex(p)
+	end)
+end
+
+function PickupRichCandy( keys )
+	local caster = keys.caster
+	local ability = keys.ability
+
+	caster:EmitSound("DOTA_Item.Hand_Of_Midas")
+
+	Railroad:GiveCandiesToTeam(caster:GetTeamNumber(), ability:GetAbilitySpecial("candies"), true)
 end
 
 WAGON_SPEED = 14
@@ -349,7 +441,6 @@ function OnBucketThink( keys )
 	local ability = keys.ability
 
 	if caster.particles then
-
 		local radius = ability:GetAbilitySpecial("radius")
 
 		local units = FindUnitsInRadius( caster:GetTeam(), caster:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, FIND_ANY_ORDER, false )
@@ -374,6 +465,16 @@ function OnBucketThink( keys )
 		else
 			ParticleManager:SetParticleControl(caster.particles[1], 4, Vector(255, color_b, color_b))
 			ParticleManager:SetParticleControl(caster.particles[2], 4, Vector(color_b, 255, color_b))
+		end
+
+		if caster.progress == 1.0 then
+			Railroad:GiveCandiesToTeam(2, ability:GetAbilitySpecial("candies"))
+			PopupParticle(ability:GetAbilitySpecial("candies"), Vector(200,60,55), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
+			ParticleManager:CreateParticle("particles/bucket_impact.vpcf", PATTACH_OVERHEAD_FOLLOW, caster)
+		elseif caster.progress == -1.0 then
+			Railroad:GiveCandiesToTeam(3, ability:GetAbilitySpecial("candies"))
+			PopupParticle(ability:GetAbilitySpecial("candies"), Vector(200,60,55), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
+			ParticleManager:CreateParticle("particles/bucket_impact.vpcf", PATTACH_OVERHEAD_FOLLOW, caster)
 		end
 	end
 end
@@ -404,11 +505,10 @@ function EatEgg( keys )
 		unit:AddNewModifier(caster, ability, "modifier_universal_buff", {})
 
 		local i = 1
-		for k,v in pairs(kv.Abilities) do
-			local ab = unit:AddAbility(v)
+		for i=1,6 do
+			local ab = unit:AddAbility(kv.Abilities[tostring(i)])
 			ab:SetLevel(CustomNetTables:GetTableValue("universal_buff", tostring(caster:GetPlayerOwnerID()))["ability"..tostring(i)])
 			ab:SetHidden(false)
-			i = i + 1
 		end
 
 		PlayerResource:NewSelection(caster:GetPlayerOwnerID(), unit:GetEntityIndex())

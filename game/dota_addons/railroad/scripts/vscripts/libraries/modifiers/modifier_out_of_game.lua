@@ -21,6 +21,8 @@ function modifier_out_of_game:CheckState()
     [MODIFIER_STATE_UNSELECTABLE] = true,
     [MODIFIER_STATE_COMMAND_RESTRICTED] = true,
     [MODIFIER_STATE_NO_UNIT_COLLISION] = true,
+    [MODIFIER_STATE_DISARMED] = true,
+    [MODIFIER_STATE_SILENCED] = true,
   }
 
   return state

@@ -46,11 +46,7 @@ require('settings')
 -- events.lua is where you can specify the actions to be taken when any event occurs and is one of the core barebones files.
 require('events')
 
-
--- This is a detailed example of many of the containers.lua possibilities, but only activates if you use the provided "playground" map
-if GetMapName() == "playground" then
-  require("examples/playground")
-end
+require("railroad")
 
 LinkLuaModifier( "modifier_out_of_game", "libraries/modifiers/modifier_out_of_game.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_universal_buff", "libraries/modifiers/modifier_universal_buff.lua", LUA_MODIFIER_MOTION_NONE )
@@ -119,10 +115,12 @@ function GameMode:OnHeroInGame(hero)
   hero.buff_dummy = CreateUnitByName("npc_dummy_unit", Vector(25000, 25000, 25000), true, nil, hero, hero:GetTeam())
 
   for k,v in pairs(GameMode.BuffsKVs) do
-   hero.buff_dummy:AddAbility(k)
-   print(k)
-   CustomNetTables:SetTableValue("players", tostring(hero:GetPlayerOwnerID()), {buff_dummy = hero.buff_dummy:GetEntityIndex(), candies = 1400})
+    hero.buff_dummy:AddAbility(k)
+    CustomNetTables:SetTableValue("players", tostring(hero:GetPlayerOwnerID()), {buff_dummy = hero.buff_dummy:GetEntityIndex(), candies = 1400})
   end
+
+  GameMode.assignedPlayerHeroes = GameMode.assignedPlayerHeroes or {}
+  GameMode.assignedPlayerHeroes[hero:GetPlayerID()] = hero
 
   --[[ --These lines if uncommented will replace the W ability of any hero that loads into the game
     --with the "example_ability" ability
@@ -139,6 +137,8 @@ end
 ]]
 function GameMode:OnGameInProgress()
   DebugPrint("[BAREBONES] The game has officially begun")
+
+  Railroad:SpawnRichGreevil()
 end
 
 
@@ -163,13 +163,14 @@ function GameMode:InitGameMode()
     local buff_array = {}
     for k,v in pairs(GameMode.BuffsKVs) do
       local key = tostring(string.gsub(string.lower(k), "buff_", ""))
-      print(key)
       buff_array[key] = 0
     end
     CustomNetTables:SetTableValue("universal_buff", tostring(i), buff_array)
   end
   
   GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( GameMode, "DamageFilter" ), self )
+
+  Railroad:Init()
 end
 
 -- This is an example console command
