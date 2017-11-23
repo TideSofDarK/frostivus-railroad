@@ -20,19 +20,19 @@ end
 
 
 function modifier_universal_buff:GetModifierSpellAmplify_Percentage()
-  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).spell_amplify
+  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).spellamplify
 end
 
 function modifier_universal_buff:GetModifierMagicalResistanceBonus()
-  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).magic_res
+  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).magicres
 end
 
 function modifier_universal_buff:GetModifierExtraHealthBonus()
-  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).hp
+  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).health
 end
 
 function modifier_universal_buff:GetModifierConstantHealthRegen()
-  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).hp_regen
+  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).healthregen
 end
 
 function modifier_universal_buff:GetModifierPercentageManacost()
@@ -40,7 +40,7 @@ function modifier_universal_buff:GetModifierPercentageManacost()
 end
 
 function modifier_universal_buff:GetModifierConstantManaRegen()
-  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).mp_regen
+  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).mpregen
 end
 
 function modifier_universal_buff:GetModifierPreAttack_BonusDamage()
@@ -56,7 +56,7 @@ function modifier_universal_buff:GetModifierCooldownReduction_Constant()
 end
 
 function modifier_universal_buff:GetModifierAttackSpeedBonus_Constant()
-  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).as
+  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).attackspeed
 end
 
 function modifier_universal_buff:IsHidden()

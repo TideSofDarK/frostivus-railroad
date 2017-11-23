@@ -139,12 +139,6 @@ end
 ]]
 function GameMode:OnGameInProgress()
   DebugPrint("[BAREBONES] The game has officially begun")
-
-  Timers:CreateTimer(30, -- Start this timer 30 game-time seconds later
-    function()
-      DebugPrint("This function is called 30 seconds after the game begins, and every 30 seconds thereafter")
-      return 30.0 -- Rerun this timer every 30 game-time seconds 
-    end)
 end
 
 
@@ -167,25 +161,11 @@ function GameMode:InitGameMode()
 
   for i=0,9 do
     local buff_array = {}
-    buff_array.ability1 = 0
-    buff_array.ability2 = 0
-    buff_array.ability3 = 0
-    buff_array.ability4 = 0
-    buff_array.ability5 = 0
-    buff_array.ability6 = 0
-
-    buff_array.lifesteal = 0
-    buff_array.spell_lifesteal = 0
-    buff_array.hp_regen = 0
-    buff_array.hp = 0
-    buff_array.mp_regen = 0
-    buff_array.manacost = 0
-    buff_array.damage = 0
-    buff_array.spell_amplify = 0
-    buff_array.armour = 0
-    buff_array.magic_res = 0
-    buff_array.cdr = 0
-    buff_array.as = 0
+    for k,v in pairs(GameMode.BuffsKVs) do
+      local key = tostring(string.gsub(string.lower(k), "buff_", ""))
+      print(key)
+      buff_array[key] = 0
+    end
     CustomNetTables:SetTableValue("universal_buff", tostring(i), buff_array)
   end
   
@@ -223,7 +203,7 @@ function GameMode:DamageFilter( filter_table )
     local damage_type = filter_table["damagetype_const"]
 
     if not attacker:IsRealHero() and string.match(attacker:GetUnitName(), "greevil_hero") then
-      local spell_lifesteal = CustomNetTables:GetTableValue("universal_buff", tostring(attacker:GetPlayerOwnerID())).spell_lifesteal
+      local spell_lifesteal = CustomNetTables:GetTableValue("universal_buff", tostring(attacker:GetPlayerOwnerID())).spelllifesteal
       local lifesteal = CustomNetTables:GetTableValue("universal_buff", tostring(attacker:GetPlayerOwnerID())).lifesteal
       if damage_type == DAMAGE_TYPE_MAGICAL and spell_lifesteal > 0 then
         local nFXIndex = ParticleManager:CreateParticle( "particles/items3_fx/octarine_core_lifesteal.vpcf", PATTACH_ABSORIGIN_FOLLOW, attacker )

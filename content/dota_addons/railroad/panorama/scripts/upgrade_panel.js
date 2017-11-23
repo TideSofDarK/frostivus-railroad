@@ -10,10 +10,12 @@ function Toggle() {
 }
 
 function UpdatePrimaryCost() {
-	var ent = CustomNetTables.GetTableValue("players", Players.GetLocalPlayer().toString()).buff_dummy;
-	var ability = selectedBuff.id.replace("Cell", "buff_");
+	if (selectedBuff) {
+		var ent = CustomNetTables.GetTableValue("players", Players.GetLocalPlayer().toString()).buff_dummy;
+		var ability = selectedBuff.id.replace("Cell", "buff_");
 
-    primaryCost = GetCost(ent, Entities.GetAbilityByName( ent, ability ));
+	    primaryCost = GetCost(ent, Entities.GetAbilityByName( ent, ability ));
+	}
 }
 
 function Update() {

@@ -23,6 +23,22 @@ function Railroad:OnUpgrade(keys)
 			CustomNetTables:SetTableValue("players", tostring(hero:GetPlayerOwnerID()), old_data)
 
 			ab:SetLevel(ab:GetLevel() + 1)
+
+			local buff_dummy = hero.buff_dummy
+			if buff_dummy then
+				local buff_array = CustomNetTables:GetTableValue("universal_buff", tostring(pid))
+				local key = tostring(string.gsub(string.lower(ab:GetName()), "buff_", ""))
+				buff_array[key] = ab:GetAbilitySpecial(key)
+				CustomNetTables:SetTableValue("universal_buff", tostring(pid), buff_array)
+			end
+
+			if hero.greevil then
+				for i=0,5 do
+					local ab = hero.greevil:GetAbilityByIndex(i)
+					ab:SetLevel(CustomNetTables:GetTableValue("universal_buff", tostring(pid))["ability"..tostring(i+1)])
+					ab:SetHidden(false)
+				end
+			end
 		end
 	end
 end
@@ -382,20 +398,23 @@ function EatEgg( keys )
 		caster:AddNoDraw()
 
 		local unit = CreateUnitByName(kv.Unit, caster:GetAbsOrigin(), false, nil, caster, caster:GetTeamNumber())
+		caster.greevil = unit
 		unit:SetControllableByPlayer(caster:GetPlayerOwnerID(), true)
 
 		unit:AddNewModifier(caster, ability, "modifier_universal_buff", {})
 
+		local i = 1
 		for k,v in pairs(kv.Abilities) do
 			local ab = unit:AddAbility(v)
-			ab:SetLevel(1)
+			ab:SetLevel(CustomNetTables:GetTableValue("universal_buff", tostring(caster:GetPlayerOwnerID()))["ability"..tostring(i)])
 			ab:SetHidden(false)
+			i = i + 1
 		end
 
 		PlayerResource:NewSelection(caster:GetPlayerOwnerID(), unit:GetEntityIndex())
 		caster:SetSelectionOverride(unit)
 
-		unit:AddNewModifier(caster, ability, "modifier_kill", {duration = 5})
+		unit:AddNewModifier(caster, ability, "modifier_kill", {duration = 10})
 		Timers:CreateTimer(function()
 			if IsValidEntity(unit) then
 				if unit:GetHealth() <= 0 then
@@ -413,6 +432,7 @@ function EatEgg( keys )
 						caster:RemoveNoDraw()
 
 						unit:RemoveSelf()
+						caster.greevil = nil
 					end)
 				else
 					return 0.03
