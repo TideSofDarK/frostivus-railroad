@@ -1,7 +1,5 @@
 "DOTAAbilities"
 {
-  "Version"   "1"
-
   "buff_Ability1"
   {
     "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"

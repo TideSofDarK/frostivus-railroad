@@ -1,5 +1,30 @@
 if Railroad == nil then
     _G.Railroad = class({})
+
+    CustomGameEventManager:RegisterListener( "frostivus_upgrade", Dynamic_Wrap(Railroad, 'OnUpgrade'))
+end
+
+function Railroad:OnUpgrade(keys)
+	local pid = keys.PlayerID
+	local ability_id = keys.id
+
+	local hero = PlayerResource:GetPlayer(pid):GetAssignedHero()
+
+	local old_data = CustomNetTables:GetTableValue("players", tostring(hero:GetPlayerOwnerID()))
+
+	local candies = old_data.candies
+
+	local ab = hero.buff_dummy:FindAbilityByName(tostring(string.gsub(ability_id, "Cell", "buff_")))
+	if ab then
+		local cost = ab:GetLevelSpecialValueFor("cost", ab:GetLevel())
+		if old_data.candies >= cost then
+			old_data.candies = old_data.candies - cost
+
+			CustomNetTables:SetTableValue("players", tostring(hero:GetPlayerOwnerID()), old_data)
+
+			ab:SetLevel(ab:GetLevel() + 1)
+		end
+	end
 end
 
 WAGON_SPEED = 14

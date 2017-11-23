@@ -33,6 +33,11 @@
 
 #UpgradePanelButton
 {
+
+}
+
+.Button
+{
 	margin-left: 0px;
 	background-image: url("s2r://panorama/images/hud/hudv2_shopbutton_png.vtex");
 	background-size: 100% 100%;
@@ -58,9 +63,14 @@
     transition-duration: 0.15s;
 }
 
-#UpgradePanelButton:hover
+.Button:hover
 {
 	brightness: 2.0;
+}
+
+.Button:active
+{
+	sound: "ui_generic_button_click";
 }
 
 .ValueLabel
@@ -169,6 +179,12 @@
 
 .Cell:hover {
 	wash-color: #bbbbbb;
+
+}
+
+.Cell.Selected {
+	wash-color: #bbbbbb;
+	sound: "ui_generic_button_click";
 }
 
 #Rows
@@ -260,7 +276,48 @@
 	background-image: url("file://{images}/custom_game/icons/CellManaRegen.png");
 }
 
+#Bottom {
+	width: 100%;
+	height: fit-children;
+}
+
 #Greevil {
 	width: 100%;
-	height: 240px;
+	height: 280px;
+}
+
+#CandyIcon
+{
+	background-image: url("file://{images}/custom_game/candy.png");
+	background-size: 100% 100%;
+	width: 26px;
+	height: 26px;
+	horizontal-align: right;
+/*	margin-right: 8px;*/
+	vertical-align: center;
+	/*margin-bottom: 2px;*/
+}
+
+#UpgradeButton {
+	horizontal-align: center;
+	margin: 11px;
+	flow-children: right;
+	width: fit-children;
+	padding: 3px;
+/*	width: 200px;
+	border-radius: 3px;*/
+}
+
+#UpgradeButton .ValueLabel {
+	horizontal-align: left;
+	width: fit-children;
+	color: white;
+}
+
+#UpgradeCost {
+	text-align: center;
+	min-width: 50px;
+}
+#UpgradeCost.Red {
+	color: #FFbbbb;
 }

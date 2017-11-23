@@ -121,7 +121,7 @@ function GameMode:OnHeroInGame(hero)
   for k,v in pairs(GameMode.BuffsKVs) do
    hero.buff_dummy:AddAbility(k)
    print(k)
-   CustomNetTables:SetTableValue("players", tostring(hero:GetPlayerOwnerID()), {buff_dummy = hero.buff_dummy:GetEntityIndex(), candies = 0})
+   CustomNetTables:SetTableValue("players", tostring(hero:GetPlayerOwnerID()), {buff_dummy = hero.buff_dummy:GetEntityIndex(), candies = 1400})
   end
 
   --[[ --These lines if uncommented will replace the W ability of any hero that loads into the game
@@ -160,6 +160,10 @@ function GameMode:InitGameMode()
 
   GameMode.EggsKVs = LoadKeyValues("scripts/kv/greevils.kv")
   GameMode.BuffsKVs = LoadKeyValues("scripts/npc/railroad/abilities/buffs.txt")
+
+  for k,v in pairs(GameMode.BuffsKVs) do
+    CustomNetTables:SetTableValue("buffs_kvs", k, v)
+  end
 
   for i=0,9 do
     local buff_array = {}

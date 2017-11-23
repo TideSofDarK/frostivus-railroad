@@ -6,5 +6,6 @@
     "selection",
     "universal_buff",
     "players",
+    "buffs_kvs",
   ]
 }
