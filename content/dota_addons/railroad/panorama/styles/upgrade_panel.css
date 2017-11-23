@@ -124,6 +124,7 @@
 	font-size: 32px;
 	vertical-align: center;
 	width: fit-children;
+	margin-right: 10px;
 }
 
 #CreditsLabel {

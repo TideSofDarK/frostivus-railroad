@@ -168,11 +168,12 @@
         "Model"             "models/creeps/greevil_shopkeeper/greevil_shopkeeper.vmdl"
         "SoundSet"          "Creep_Good_Range"
         "Level"             "10"
+        "HealthBarOffset"   "150"
 
         // Abilities
         //----------------------------------------------------------------
 
-        "Ability1"          ""     // Ability 1.
+        "Ability1"          "rr_rich_greevil"     // Ability 1.
 
         // Armor
         //----------------------------------------------------------------

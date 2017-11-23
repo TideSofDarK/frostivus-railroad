@@ -21,6 +21,11 @@
         "var_type"      "FIELD_INTEGER"
         "radius"        "450"
       }
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "candies"        "1"
+      }
     }
 
     "Modifiers"
