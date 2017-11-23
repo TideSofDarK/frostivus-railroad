@@ -1307,7 +1307,7 @@
     }
     "AbilityCastAnimation"    "ACT_DOTA_CAST_ABILITY_2"
   }
-    "greevil_omni_slash"
+  "greevil_omni_slash"
   {
     // General
     //-------------------------------------------------------------------------------------------------------------
@@ -2311,40 +2311,58 @@
     }
     "AbilityCastAnimation"    "ACT_DOTA_CAST_ABILITY_1"
   }
-  "greevil_moment_of_courage"
+  "greevil_press_the_attack"
   {
     // General
     //-------------------------------------------------------------------------------------------------------------
-    "BaseClass"             "legion_commander_moment_of_courage"                            // unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-    "AbilitySound"          "Hero_LegionCommander.Courage"
+    "BaseClass"              "legion_commander_press_the_attack"                            // unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+    "AbilityUnitTargetFlags"    "DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
+    "SpellImmunityType"       "SPELL_IMMUNITY_ALLIES_NO"
+    "SpellDispellableType"      "SPELL_DISPELLABLE_YES"
+    "AbilitySound"          "Hero_LegionCommander.PressTheAttack"
 
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastRange"        "700"
+    "AbilityCastPoint"        "0.2"
+    
     // Time   
     //-------------------------------------------------------------------------------------------------------------
-    "AbilityCooldown"       "2.3 1.8 1.3 0.8"
+    "AbilityCooldown"       "16.0 15.0 14.0 13.0"
+    
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "110"
 
+    // Stats
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityModifierSupportValue" "3.0" // Value much higher than cost.
+
+    
     // Special
     //-------------------------------------------------------------------------------------------------------------
     "AbilitySpecial"
     {
       "01"
       {
-        "var_type"          "FIELD_INTEGER"
-        "trigger_chance"      "25"
-        "LinkedSpecialBonus"        "special_bonus_unique_legion_commander_3"                                 
+        "var_type"        "FIELD_FLOAT"
+        "duration"        "5.0"
       }
       "02"
       {
-        "var_type"          "FIELD_FLOAT"
-        "buff_duration"       "1.0"
+        "var_type"        "FIELD_INTEGER"
+        "attack_speed"      "65 90 115 140"
       }
       "03"
       {
-        "var_type"          "FIELD_INTEGER"
-        "hp_leech_percent"      "55 65 75 85"
+        "var_type"        "FIELD_INTEGER"
+        "hp_regen"        "30 35 40 45"
       }
     }
-    "AbilityCastAnimation"    "ACT_DOTA_CAST_ABILITY_3"
+    "AbilityCastAnimation"    "ACT_DOTA_CAST_ABILITY_2"
   }
   "greevil_amplify_damage"
   {
@@ -3088,7 +3106,7 @@
     "FightRecapLevel"       "2"
     "AbilitySound"          "hero_bloodseeker.rupture"
 
-    "HasScepterUpgrade"     "1"
+    "HasScepterUpgrade"     "0"
 
     // Casting
     //-------------------------------------------------------------------------------------------------------------
