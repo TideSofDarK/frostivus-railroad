@@ -414,7 +414,7 @@ function EatEgg( keys )
 		PlayerResource:NewSelection(caster:GetPlayerOwnerID(), unit:GetEntityIndex())
 		caster:SetSelectionOverride(unit)
 
-		unit:AddNewModifier(caster, ability, "modifier_kill", {duration = 10})
+		unit:AddNewModifier(caster, ability, "modifier_kill", {duration = 20})
 		Timers:CreateTimer(function()
 			if IsValidEntity(unit) then
 				if unit:GetHealth() <= 0 then
