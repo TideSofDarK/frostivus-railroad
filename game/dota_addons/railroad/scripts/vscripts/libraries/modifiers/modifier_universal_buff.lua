@@ -13,6 +13,7 @@ function modifier_universal_buff:DeclareFunctions()
     MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
     MODIFIER_PROPERTY_COOLDOWN_REDUCTION_CONSTANT,
     MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
+    MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT,
   }
 
   return funcs
@@ -24,15 +25,15 @@ function modifier_universal_buff:GetModifierSpellAmplify_Percentage()
 end
 
 function modifier_universal_buff:GetModifierMagicalResistanceBonus()
-  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).magicres
+  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).magicres + (0.5 * self:GetParent():GetOwnerEntity():GetLevel())
 end
 
 function modifier_universal_buff:GetModifierExtraHealthBonus()
-  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).health
+  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).health + (53 * self:GetParent():GetOwnerEntity():GetLevel())
 end
 
 function modifier_universal_buff:GetModifierConstantHealthRegen()
-  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).healthregen
+  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).healthregen + (0.19 * self:GetParent():GetOwnerEntity():GetLevel())
 end
 
 function modifier_universal_buff:GetModifierPercentageManacost()
@@ -40,15 +41,15 @@ function modifier_universal_buff:GetModifierPercentageManacost()
 end
 
 function modifier_universal_buff:GetModifierConstantManaRegen()
-  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).mpregen
+  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).mpregen + (0.13 * self:GetParent():GetOwnerEntity():GetLevel())
 end
 
 function modifier_universal_buff:GetModifierPreAttack_BonusDamage()
-  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).damage
+  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).damage + (4 * self:GetParent():GetOwnerEntity():GetLevel())
 end
 
 function modifier_universal_buff:GetModifierPhysicalArmorBonus()
-  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).armour
+  return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).armour + (0.5 * self:GetParent():GetOwnerEntity():GetLevel())
 end
 
 function modifier_universal_buff:GetModifierCooldownReduction_Constant()
@@ -57,6 +58,10 @@ end
 
 function modifier_universal_buff:GetModifierAttackSpeedBonus_Constant()
   return CustomNetTables:GetTableValue("universal_buff", tostring(self:GetParent():GetPlayerOwnerID())).attackspeed
+end
+
+function modifier_universal_buff:GetModifierMoveSpeedBonus_Constant()
+  return (5 * self:GetParent():GetOwnerEntity():GetLevel())
 end
 
 function modifier_universal_buff:IsHidden()

@@ -637,7 +637,7 @@ function EatEgg( keys )
 		caster:AddNewModifier(caster, ability, "modifier_out_of_game", {})
 		caster:AddNoDraw()
 
-		local unit = CreateUnitByName(kv.Unit, caster:GetAbsOrigin(), false, nil, caster, caster:GetTeamNumber())
+		local unit = CreateUnitByName(kv.Unit, caster:GetAbsOrigin(), false, caster, caster, caster:GetTeamNumber())
 		caster.greevil = unit
 		unit:SetControllableByPlayer(caster:GetPlayerOwnerID(), true)
 
@@ -653,7 +653,7 @@ function EatEgg( keys )
 		PlayerResource:NewSelection(caster:GetPlayerOwnerID(), unit:GetEntityIndex())
 		caster:SetSelectionOverride(unit)
 
-		unit:AddNewModifier(caster, ability, "modifier_kill", {duration = 20})
+		unit:AddNewModifier(caster, ability, "modifier_kill", {duration = 90})
 		Timers:CreateTimer(function()
 			if IsValidEntity(unit) then
 				if unit:GetHealth() <= 0 then
