@@ -69,7 +69,7 @@
   {
     "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
     "BaseClass"           "ability_datadriven"
-    "MaxLevel" "4"
+    "MaxLevel" "3"
     "AbilityTextureName"      "rubick_empty1"
 
     "AbilitySpecial"
@@ -82,7 +82,7 @@
       "02"
       {
         "var_type"      "FIELD_INTEGER"
-        "cost"        "150 200 250 300"
+        "cost"        "300 400 500"
       }
     }
   }
@@ -111,7 +111,7 @@
   {
     "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
     "BaseClass"           "ability_datadriven"
-    "MaxLevel" "4"
+    "MaxLevel" "3"
     "AbilityTextureName"      "rubick_empty1"
 
     "AbilitySpecial"
@@ -119,12 +119,12 @@
       "01"
       {
         "var_type"      "FIELD_INTEGER"
-        "ability6"        "1 2 3 4"
+        "ability6"        "1 2 3"
       }
       "02"
       {
         "var_type"      "FIELD_INTEGER"
-        "cost"        "150 200 250 300"
+        "cost"        "300 400 500"
       }
     }
   }
@@ -140,7 +140,7 @@
       "01"
       {
         "var_type"      "FIELD_INTEGER"
-        "damage"        "25 50 75 100"
+        "damage"        "10 30 60 100 150"
       }
       "02"
       {
@@ -161,7 +161,7 @@
       "01"
       {
         "var_type"      "FIELD_INTEGER"
-        "attackspeed"        "25 50 75 100"
+        "attackspeed"        "10 25 50 75 100"
       }
       "02"
       {
@@ -182,7 +182,7 @@
       "01"
       {
         "var_type"      "FIELD_INTEGER"
-        "lifesteal"        "25 50 75 100"
+        "lifesteal"        "5 10 15 20 25"
       }
       "02"
       {
@@ -203,7 +203,7 @@
       "01"
       {
         "var_type"      "FIELD_INTEGER"
-        "health"        "25 50 75 100"
+        "health"        "150 450 900 1500 2500"
       }
       "02"
       {
@@ -224,7 +224,7 @@
       "01"
       {
         "var_type"      "FIELD_INTEGER"
-        "healthregen"        "25 50 75 100"
+        "healthregen"        "1 3 6 10 15"
       }
       "02"
       {
@@ -245,7 +245,7 @@
       "01"
       {
         "var_type"      "FIELD_INTEGER"
-        "armour"        "25 50 75 100"
+        "armour"        "1 3 6 10 15"
       }
       "02"
       {
@@ -266,7 +266,7 @@
       "01"
       {
         "var_type"      "FIELD_INTEGER"
-        "spellamplify"        "25 50 75 100"
+        "spellamplify"        "2 6 12 20 30"
       }
       "02"
       {
@@ -287,7 +287,7 @@
       "01"
       {
         "var_type"      "FIELD_INTEGER"
-        "cdr"        "25 50 75 100"
+        "cdr"        "2 6 12 20 30"
       }
       "02"
       {
@@ -308,7 +308,7 @@
       "01"
       {
         "var_type"      "FIELD_INTEGER"
-        "spelllifesteal"        "25 50 75 100"
+        "spelllifesteal"        "2 6 12 20 30"
       }
       "02"
       {
@@ -329,7 +329,7 @@
       "01"
       {
         "var_type"      "FIELD_INTEGER"
-        "manacost"        "25 50 75 100"
+        "manacost"        "2 6 12 20 30"
       }
       "02"
       {
@@ -350,7 +350,7 @@
       "01"
       {
         "var_type"      "FIELD_INTEGER"
-        "magicres"        "25 50 75 100"
+        "magicres"        "2 6 12 20 30"
       }
       "02"
       {
@@ -371,7 +371,7 @@
       "01"
       {
         "var_type"      "FIELD_INTEGER"
-        "manaregen"        "25 50 75 100"
+        "manaregen"        "1 3 6 10 15"
       }
       "02"
       {

@@ -23,8 +23,8 @@
 		"MagicalResistance"			"50"
 
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
-		"AttackDamageMin"		"19"
-		"AttackDamageMax"		"25"
+		"AttackDamageMin"		"160"
+		"AttackDamageMax"		"175"
 		"AttackRate"		"1.700000"
 		"AttackAnimationPoint"		"0.550000"
 		"AttackAcquisitionRange"		"800"
@@ -43,7 +43,7 @@
 		"MovementSpeed"				"320"		
 		"MovementTurnRate"			"0.6"		
 
-		"StatusHealth"				"5500"
+		"StatusHealth"				"30000"
 		"StatusHealthRegen"			"20"			
 		"StatusMana"				"1000"		
 		"StatusManaRegen"			"0"		
@@ -90,8 +90,8 @@
 		"MagicalResistance"			"50"
 
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
-		"AttackDamageMin"			"32"
-		"AttackDamageMax"			"42"
+		"AttackDamageMin"			"160"
+		"AttackDamageMax"			"175"
 		"AttackRate"				"1.700000"
 		"AttackAnimationPoint"		"0.560000"
 		"AttackAcquisitionRange"	"600"
@@ -110,7 +110,7 @@
 		"MovementSpeed"				"320"		
 		"MovementTurnRate"			"0.6"		
 
-		"StatusHealth"				"5500"
+		"StatusHealth"				"30000"
 		"StatusHealthRegen"			"20"			
 		"StatusMana"				"1000"		
 		"StatusManaRegen"			"0"		
