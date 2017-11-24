@@ -21,6 +21,7 @@ function Spawn( entityKeyValues )
 
 				return 1.5
 			else
+				-- AddFOWViewer(2, Railroad.BOSS_DIRE:GetAbsOrigin(), flRadius, flDuration, bObstructedVision)
 				if thisEntity:GetTeamNumber() == 2 then
 					thisEntity:MoveToTargetToAttack(Railroad.BOSS_DIRE)
 				else

@@ -58,9 +58,10 @@
     vertical-align: center;
     horizontal-align: center;
     text-shadow: 4px 4px 4px #121212;
-    font-size: 36px;
+    font-size: 44px;
     font-weight: bold;
     text-align: center;
+    sound: "ui_generic_button_click";
 }
 
 .HeroImage

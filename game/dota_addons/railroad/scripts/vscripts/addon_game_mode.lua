@@ -42,6 +42,8 @@ function Precache( context )
   --PrecacheModel("models/props_debris/merchant_debris_chest002.vmdl", context)
 
   -- Sounds can precached here like anything else
+  PrecacheResource("soundfile", "soundevents/custom_sound.vsndevts", context)
+  PrecacheResource("soundfile", "soundevents/game_sounds_custom.vsndevts", context)
   PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_gyrocopter.vsndevts", context)
   PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_dragon_knight.vsndevts", context)
   PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_crystal_maiden.vsndevts", context)
@@ -55,6 +57,15 @@ function Precache( context )
   -- Custom units from npc_units_custom.txt can also have all of their abilities and precache{} blocks precached in this way
   PrecacheUnitByNameSync("npc_dota_hero_ancient_apparition", context)
   PrecacheUnitByNameSync("npc_dota_hero_enigma", context)
+
+  PrecacheUnitByNameSync("npc_black_greevil", context)
+  PrecacheUnitByNameSync("npc_white_greevil", context)
+  PrecacheUnitByNameSync("npc_orange_greevil", context)
+  PrecacheUnitByNameSync("npc_yellow_greevil", context)
+  PrecacheUnitByNameSync("npc_green_greevil", context)
+  PrecacheUnitByNameSync("npc_purple_greevil", context)
+  PrecacheUnitByNameSync("npc_fire_greevil", context)
+  PrecacheUnitByNameSync("npc_ice_greevil", context)
 end
 
 -- Create the game mode when we activate

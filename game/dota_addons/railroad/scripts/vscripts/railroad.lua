@@ -474,9 +474,17 @@ function OnBucketThink( keys )
 		if teams[2] and teams[3] then
 
 		elseif teams[2] then
-			caster.progress = math.min(caster.progress + 0.2, 1.0)
+			local new_value = math.min(caster.progress + 0.2, 1.0)
+			if caster.progress ~= new_value then
+				caster.once = false
+			end
+			caster.progress = new_value
 		elseif teams[3] then
-			caster.progress = math.max(caster.progress - 0.2, -1.0)
+			local new_value = math.max(caster.progress - 0.2, -1.0)
+			if caster.progress ~= new_value then
+				caster.once = false
+			end
+			caster.progress = new_value
 		end
 
 		local color = math.ceil(math.abs(caster.progress) * 255)
@@ -491,10 +499,22 @@ function OnBucketThink( keys )
 		end
 
 		if caster.progress == 1.0 then
+			if not caster.once then
+				EmitAnnouncerSoundForTeam("bucket.capture", 2)
+				caster.once = true
+				Notifications:TopToTeam(2, {text="You've captured the bucket!", duration=3, class="NotificationMessage"})
+			end
+
 			Railroad:GiveCandiesToTeam(2, ability:GetAbilitySpecial("candies"))
 			PopupParticle(ability:GetAbilitySpecial("candies"), Vector(200,60,55), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
 			ParticleManager:CreateParticle("particles/bucket_impact.vpcf", PATTACH_OVERHEAD_FOLLOW, caster)
 		elseif caster.progress == -1.0 then
+			if not caster.once then
+				EmitAnnouncerSoundForTeam("bucket.capture", 3)
+				caster.once = true
+				Notifications:TopToTeam(3, {text="You've captured the bucket!", duration=3, class="NotificationMessage"})
+			end
+
 			Railroad:GiveCandiesToTeam(3, ability:GetAbilitySpecial("candies"))
 			PopupParticle(ability:GetAbilitySpecial("candies"), Vector(200,60,55), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
 			ParticleManager:CreateParticle("particles/bucket_impact.vpcf", PATTACH_OVERHEAD_FOLLOW, caster)
@@ -580,6 +600,12 @@ function SpawnDragons( keys )
 	ParticleManager:CreateParticle("particles/units/heroes/hero_dragon_knight/dragon_knight_transform_green.vpcf", PATTACH_ABSORIGIN_FOLLOW, toxic)
 
 	caster:EmitSound("Hero_DragonKnight.DragonTail.Cast.Kindred")
+
+	Timers:CreateTimer(function (  )
+		fire:MoveToTargetToAttack(Railroad.BOSS_DIRE)
+		toxic:MoveToTargetToAttack(Railroad.BOSS_DIRE)
+		return 1.0
+	end)
 end
 
 function SpawnDragon( keys )
@@ -592,4 +618,9 @@ function SpawnDragon( keys )
 	ParticleManager:CreateParticle("particles/units/heroes/hero_dragon_knight/dragon_knight_transform_blue.vpcf", PATTACH_ABSORIGIN_FOLLOW, ice)
 
 	caster:EmitSound("Hero_DragonKnight.DragonTail.Cast.Kindred")
+
+	Timers:CreateTimer(function (  )
+		ice:MoveToTargetToAttack(Railroad.BOSS_RADIANT)
+		return 1.0
+	end)
 end

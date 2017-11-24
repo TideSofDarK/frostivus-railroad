@@ -5,7 +5,7 @@
     "npc_greevil_spawner"
     { 
         "BaseClass"         "npc_dota_creature"
-        "Model"             "models/development/invisiblebox.vmdl"
+        "Model"             "models/courier/greevil/greevil.vmdl"
         "ModelScale"        "1"
         "Level"             "10"
 
