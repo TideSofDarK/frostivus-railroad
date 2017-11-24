@@ -16,8 +16,6 @@ function Railroad:Init()
     for i=1,7 do
     	table.insert(Railroad.RICH_GREEVIL_WAYPOINTS_2, Entities:FindByName(nil, "rich_greevil_waypoint2_"..tostring(i)):GetAbsOrigin())
     end
-    
-    CreateUnitByName("npc_wagon", Entities:FindByName(nil, "wagon_spawn"):GetAbsOrigin(), true, nil, nil, DOTA_TEAM_NEUTRALS)
 end
 
 function Railroad:OnUpgrade(keys)
@@ -152,7 +150,7 @@ function PickupRichCandy( keys )
 	Railroad:GiveCandiesToTeam(caster:GetTeamNumber(), ability:GetAbilitySpecial("candies"), true)
 end
 
-WAGON_SPEED = 14
+WAGON_SPEED = 6
 
 Railroad.wagon = nil
 Railroad.wagon_path = nil
@@ -239,6 +237,8 @@ function Wagon( keys )
 	local caster = keys.caster
 	local ability = keys.ability
 
+	if not IsValidEntity(ability) then return end
+
 	if caster:IsNull() then return end
 
 	if not Railroad.wagon_path then
@@ -276,10 +276,19 @@ function Wagon( keys )
 
 			-- CustomNetTables:SetTableValue( "scenario", "wagon", {percentage = percentage} )
 			local team = v:GetTeamNumber()
+
+			if team == 3 then
+				team = 2
+			else
+				team = 3
+			end
+
 			local team_modifier = 1
 			if team == 3 then team_modifier = -1 end
 
-			local movement = Timers:CreateTimer(0.0, function ()
+			local movement
+
+			movement = Timers:CreateTimer(0.0, function ()
 				local position = caster:GetAbsOrigin()
 				 
 				local distance_traveled = 0
@@ -288,16 +297,61 @@ function Wagon( keys )
 				local new_position = position
 				 
 				while distance_traveled < distance_to_travel do
-				    if #caster.path < caster.path_point + team_modifier then
-				        break
+				    -- if #caster.path < caster.path_point + team_modifier then
+				    --     break
+				    -- end
+
+				    local function Destroy()
+				    	local p = ParticleManager:CreateParticle("particles/frostivus_gameplay/fireworks.vpcf", PATTACH_CUSTOMORIGIN, caster)
+				    	ParticleManager:SetParticleControl(p, 3, caster:GetAbsOrigin() + Vector(0,0,300))
+				    	ParticleManager:SetParticleControlOrientation(p, 3, Vector(0, 1, 0), Vector(1, 0, 0), Vector(0,1,0))
+
+						caster:FindAbilityByName("railroad_wagon"):RemoveSelf()
+
+						ParticleManager:DestroyParticle(caster.area, false)
+				    	
+				    	Timers:CreateTimer(5.0, function ()
+				    		caster:SetModel("models/development/invisiblebox.vmdl")
+				    		caster:EmitSound("Hero_Techies.Suicide")
+				    		local p = ParticleManager:CreateParticle("particles/econ/items/techies/techies_arcana/techies_suicide_arcana.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
+				    		ParticleManager:SetParticleControl(p, 3, caster:GetAbsOrigin())
+				    	end)
+
+				    	Timers:RemoveTimer(movement)
 				    end
 					
 				    local next_point
 
 				    if team == 3 then
-				    	next_point = GetGroundPosition(caster.path[caster.path_point],caster)	
+					    if not caster.path[caster.path_point] then
+					    	Railroad:GiveCandiesToTeam(2, 1200, true)
+
+					    	Notifications:TopToTeam(3, {text="Enemy has captured the wagon and received 1200 candies", duration=2, class="NotificationMessage"})
+					    	Notifications:TopToTeam(2, {text="You've captured the wagon and received 1200 candies!", duration=3, class="NotificationMessage"})
+					    
+					    	EmitAnnouncerSoundForTeam("bucket.lost_wagon", 3)
+					    	EmitAnnouncerSoundForTeam("bucket.capture", 2)
+
+					    	Destroy()
+					    	return 0.0
+					    end
+
+					    next_point = GetGroundPosition(caster.path[caster.path_point],caster)
 				    else
-				    	next_point = GetGroundPosition(caster.path[caster.path_point + team_modifier],caster)	
+					    if not caster.path[caster.path_point + team_modifier] then
+					    	Railroad:GiveCandiesToTeam(3, 1200, true)
+
+					    	Notifications:TopToTeam(2, {text="Enemy has captured the wagon and received 1200 candies", duration=2, class="NotificationMessage"})
+					    	Notifications:TopToTeam(3, {text="You've captured the wagon and received 1200 candies!", duration=3, class="NotificationMessage"})
+					    
+					    	EmitAnnouncerSoundForTeam("bucket.lost_wagon", 2)
+					    	EmitAnnouncerSoundForTeam("bucket.capture", 3)
+
+					    	Destroy()
+					    	return 0.0
+					    end
+
+					    next_point = GetGroundPosition(caster.path[caster.path_point + team_modifier],caster)
 				    end
 
 				    local ignore_z = (team == 3 and caster.path[caster.path_point].z == caster.path[caster.path_point + 1].z) or (team == 2 and caster.path[caster.path_point + team_modifier].z == caster.path[caster.path_point].z)
@@ -461,7 +515,7 @@ function OnBucketThink( keys )
 	local caster = keys.caster
 	local ability = keys.ability
 
-	if GameRules:State_Get() ~= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then return end
+	-- if GameRules:State_Get() ~= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then return end
 
 	if caster.particles then
 		local radius = ability:GetAbilitySpecial("radius")
@@ -505,9 +559,22 @@ function OnBucketThink( keys )
 				Notifications:TopToTeam(2, {text="You've captured the bucket!", duration=3, class="NotificationMessage"})
 			end
 
+			for i=0,4 do
+				local pID = PlayerResource:GetNthPlayerIDOnTeam(2, i)
+				local hero = GameMode.assignedPlayerHeroes[pID]
+
+				if hero then
+					PlayerResource:ModifyGold(pID, 4, true, 0)
+					hero:AddExperience(3, 0, false, true)
+				end
+			end
 			Railroad:GiveCandiesToTeam(2, ability:GetAbilitySpecial("candies"))
 			PopupParticle(ability:GetAbilitySpecial("candies"), Vector(200,60,55), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
+			PopupParticle(4, Vector(200,200,55), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
+			PopupParticle(3, Vector(200,200,200), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
+			AddFOWViewer(2, caster:GetAbsOrigin(), 400, 2.0, false)
 			ParticleManager:CreateParticle("particles/bucket_impact.vpcf", PATTACH_OVERHEAD_FOLLOW, caster)
+			caster:SetTeam(2)
 		elseif caster.progress == -1.0 then
 			if not caster.once then
 				EmitAnnouncerSoundForTeam("bucket.capture", 3)
@@ -515,9 +582,22 @@ function OnBucketThink( keys )
 				Notifications:TopToTeam(3, {text="You've captured the bucket!", duration=3, class="NotificationMessage"})
 			end
 
+			for i=0,4 do
+				local pID = PlayerResource:GetNthPlayerIDOnTeam(3, i)
+				local hero = GameMode.assignedPlayerHeroes[pID]
+
+				if hero then
+					PlayerResource:ModifyGold(pID, 4, true, 0)
+					hero:AddExperience(3, 0, false, true)
+				end
+			end
 			Railroad:GiveCandiesToTeam(3, ability:GetAbilitySpecial("candies"))
 			PopupParticle(ability:GetAbilitySpecial("candies"), Vector(200,60,55), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
+			PopupParticle(4, Vector(200,200,55), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
+			PopupParticle(3, Vector(200,200,200), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
+			AddFOWViewer(3, caster:GetAbsOrigin(), 400, 2.0, false)
 			ParticleManager:CreateParticle("particles/bucket_impact.vpcf", PATTACH_OVERHEAD_FOLLOW, caster)
+			caster:SetTeam(3)
 		end
 	end
 end

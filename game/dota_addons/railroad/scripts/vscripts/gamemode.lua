@@ -138,7 +138,31 @@ end
 function GameMode:OnGameInProgress()
   DebugPrint("[BAREBONES] The game has officially begun")
 
-  Railroad:SpawnRichGreevil()
+  Timers:CreateTimer(2 * 60, function (  )
+    if GameRules:GetDOTATime(false,false) >= 20 * 60 then
+      return nil
+    end
+    if not IsValidEntity(Railroad.wagon) then
+      CreateUnitByName("npc_wagon", Entities:FindByName(nil, "wagon_spawn"):GetAbsOrigin(), true, nil, nil, DOTA_TEAM_NEUTRALS)
+    end
+
+    Timers:CreateTimer(15, function (  )
+      Railroad:SpawnRichGreevil()
+    end)
+
+    return 4 * 60
+  end)
+
+  Timers:CreateTimer(20 * 60, function (  )
+    Railroad.BOSS_RADIANT:RemoveModifierByName("modifier_invulnerable")
+    Railroad.BOSS_RADIANT:RemoveModifierByName("modifier_rooted")
+
+    Railroad.BOSS_DIRE:RemoveModifierByName("modifier_invulnerable")
+    Railroad.BOSS_DIRE:RemoveModifierByName("modifier_rooted")
+
+    Notifications:TopToTeam(2, {text="Protect the Ice Queen on her way to the Dire fortress!", duration=3, class="NotificationMessage"})
+    Notifications:TopToTeam(3, {text="Protect the Ice King on his way to the Radiant fortress!", duration=3, class="NotificationMessage"})
+  end)
 end
 
 

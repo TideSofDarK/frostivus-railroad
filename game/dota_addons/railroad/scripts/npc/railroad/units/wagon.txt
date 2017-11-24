@@ -5,7 +5,7 @@
 	"npc_wagon"
 	{
 		"BaseClass"					"npc_dota_creature"
-		"Model"						"models/wagon/wagon.vmdl"
+		"Model"						"models/wagon/wagon_v2.vmdl"
 		"ModelScale"				"1.15"
 
 		"SoundSet"					"Tower.Fire"
