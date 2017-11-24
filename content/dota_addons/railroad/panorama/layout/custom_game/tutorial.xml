@@ -1,0 +1,16 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="s2r://panorama/styles/play.vcss_c" />
+		<include src="s2r://panorama/styles/dashboard_page_profile.vcss_c" />
+		<include src="file://{resources}/styles/tutorial.css" />
+	</styles>
+	<scripts>
+	    <include src="file://{resources}/scripts/tutorial.js" /> 
+	</scripts>
+	<Panel class="TutorialPanelRoot" hittest="false">
+		<Panel id="TutorialPanel" hittest="false">
+			
+		</Panel>
+	</Panel>
+</root>

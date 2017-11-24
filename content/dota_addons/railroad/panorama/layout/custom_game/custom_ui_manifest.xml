@@ -15,6 +15,7 @@
     <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/modmaker/modmaker.xml" />
     <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/selection.xml" />
     <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/upgrade_panel.xml" />
+    <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/tutorial.xml" />
 
     <!-- From Overthrow.
 
