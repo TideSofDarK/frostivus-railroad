@@ -1,13 +1,9 @@
 "AddonInfo"
 {
-  "TeamCount" "5"
-  "maps"      "template_map playground"
+  "TeamCount" "2"
+  "maps"      "frostivus2"
   "IsPlayable"  "1"
-  "template_map"
-  {
-    "MaxPlayers"                    "10"
-  }
-  "playground"
+  "frostivus2"
   {
     "MaxPlayers"                    "10"
   }
