@@ -78,7 +78,7 @@
 		"MovementSpeed"				"320"		
 		"MovementTurnRate"			"0.6"		
 
-		"StatusHealth"				"5500"
+		"StatusHealth"				"1200"
 		"StatusHealthRegen"			"20"			
 		"StatusMana"				"1000"		
 		"StatusManaRegen"			"0"		
@@ -182,7 +182,7 @@
 		"MovementSpeed"				"320"		
 		"MovementTurnRate"			"0.6"		
 
-		"StatusHealth"				"5500"
+		"StatusHealth"				"1200"
 		"StatusHealthRegen"			"20"			
 		"StatusMana"				"1000"		
 		"StatusManaRegen"			"0"		
@@ -284,7 +284,7 @@
 		"MovementSpeed"				"320"		
 		"MovementTurnRate"			"0.6"		
 
-		"StatusHealth"				"5500"
+		"StatusHealth"				"1200"
 		"StatusHealthRegen"			"20"			
 		"StatusMana"				"1000"		
 		"StatusManaRegen"			"0"		
@@ -377,7 +377,7 @@
 		"MovementSpeed"				"320"		
 		"MovementTurnRate"			"0.6"		
 
-		"StatusHealth"				"5500"
+		"StatusHealth"				"1200"
 		"StatusHealthRegen"			"20"			
 		"StatusMana"				"1000"		
 		"StatusManaRegen"			"0"		
@@ -471,7 +471,7 @@
 		"MovementSpeed"				"320"		
 		"MovementTurnRate"			"0.6"		
 
-		"StatusHealth"				"5500"
+		"StatusHealth"				"1200"
 		"StatusHealthRegen"			"20"			
 		"StatusMana"				"1000"		
 		"StatusManaRegen"			"0"		
@@ -576,7 +576,7 @@
 		"MovementSpeed"				"320"		
 		"MovementTurnRate"			"0.6"		
 
-		"StatusHealth"				"5500"
+		"StatusHealth"				"1200"
 		"StatusHealthRegen"			"20"			
 		"StatusMana"				"1000"		
 		"StatusManaRegen"			"0"		
@@ -681,7 +681,7 @@
 		"MovementSpeed"				"320"		
 		"MovementTurnRate"			"0.6"		
 
-		"StatusHealth"				"5500"
+		"StatusHealth"				"1200"
 		"StatusHealthRegen"			"20"			
 		"StatusMana"				"1000"		
 		"StatusManaRegen"			"0"		
@@ -786,7 +786,7 @@
 		"MovementSpeed"				"320"		
 		"MovementTurnRate"			"0.6"		
 
-		"StatusHealth"				"5500"
+		"StatusHealth"				"1200"
 		"StatusHealthRegen"			"20"			
 		"StatusMana"				"1000"		
 		"StatusManaRegen"			"0"		
