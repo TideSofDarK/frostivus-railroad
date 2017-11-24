@@ -58,7 +58,465 @@
 			"1" "models/courier/greevil/greevil_eyes.vmdl"
 			"2" "models/courier/greevil/greevil_hair1.vmdl"
 			"3" "models/courier/greevil/greevil_horns1.vmdl"
+			"4" "models/courier/greevil/greevil_tail2.vmdl"
+			"5" "models/courier/greevil/greevil_teeth1.vmdl"
+			"6" "models/courier/greevil/greevil_wings2.vmdl"
+		}
+
+		"HasInventory"				"1"
+	}
+	"npc_purple_greevil_hero"
+	{
+		"Model"						"models/courier/greevil/greevil.vmdl"
+		"BaseClass"					"npc_dota_creature"
+		"SoundSet"					"Roshan"
+		"Level"						"10"
+		"ModelScale" 				"1.5"
+		// "IsAncient"					"1"
+		"ConsideredHero"			"1"
+
+		"MaterialGroup"				"6"
+
+		"vscripts"					"greevils.lua"
+
+		"AbilityLayout"				"6"
+
+		"ArmorPhysical"				"5"
+		"MagicalResistance"			"50"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"37"
+		"AttackDamageMax"			"45"
+		"AttackRate"				"1.6"
+		"AttackAnimationPoint"		"0.3"
+		"AttackAcquisitionRange"	"600"
+		"AttackRange"				"128"
+		"ProjectileModel"			""
+		"ProjectileSpeed"			""
+
+		"RingRadius"				"70"
+		"HealthBarOffset"			"445"
+
+		"BountyXP"					"750"		
+		"BountyGoldMin"				"150"		
+		"BountyGoldMax"				"400"		
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"320"		
+		"MovementTurnRate"			"0.6"		
+
+		"StatusHealth"				"5500"
+		"StatusHealthRegen"			"20"			
+		"StatusMana"				"1000"		
+		"StatusManaRegen"			"0"		
+
+		"VisionDaytimeRange"		"1400"		
+		"VisionNighttimeRange"		"800"
+
+		// "TeamName"					"DOTA_TEAM_NEUTRALS"							
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_HERO"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Wearables"
+		{
+			"1" "models/courier/greevil/greevil_eyes.vmdl"
+			"2" "models/courier/greevil/greevil_hair1.vmdl"
+			"3" "models/courier/greevil/greevil_horns2.vmdl"
+			"4" "models/courier/greevil/greevil_tail2.vmdl"
+			"5" "models/courier/greevil/greevil_teeth1.vmdl"
+			"6" "models/courier/greevil/greevil_wings2.vmdl"
+		}
+
+		"HasInventory"				"1"
+	}
+	"npc_red_greevil_hero"
+	{
+		"Model"						"models/courier/greevil/greevil.vmdl"
+		"BaseClass"					"npc_dota_creature"
+		"SoundSet"					"Roshan"
+		"Level"						"10"
+		"ModelScale" 				"1.5"
+		// "IsAncient"					"1"
+		"ConsideredHero"			"1"
+
+		"MaterialGroup"				"1"
+
+		"vscripts"					"greevils.lua"
+
+		"AbilityLayout"				"6"
+
+		"ArmorPhysical"				"5"
+		"MagicalResistance"			"50"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"37"
+		"AttackDamageMax"			"45"
+		"AttackRate"				"1.6"
+		"AttackAnimationPoint"		"0.3"
+		"AttackAcquisitionRange"	"600"
+		"AttackRange"				"128"
+		"ProjectileModel"			""
+		"ProjectileSpeed"			""
+
+		"RingRadius"				"70"
+		"HealthBarOffset"			"445"
+
+		"BountyXP"					"750"		
+		"BountyGoldMin"				"150"		
+		"BountyGoldMax"				"400"		
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"320"		
+		"MovementTurnRate"			"0.6"		
+
+		"StatusHealth"				"5500"
+		"StatusHealthRegen"			"20"			
+		"StatusMana"				"1000"		
+		"StatusManaRegen"			"0"		
+
+		"VisionDaytimeRange"		"1400"		
+		"VisionNighttimeRange"		"800"
+
+		// "TeamName"					"DOTA_TEAM_NEUTRALS"							
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_HERO"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Wearables"
+		{
+			"1" "models/courier/greevil/greevil_eyes.vmdl"
+			"2" "models/courier/greevil/greevil_hair2.vmdl"
+			"3" "models/courier/greevil/greevil_horns3.vmdl"
+			"4" "models/courier/greevil/greevil_tail3.vmdl"
+			"5" "models/courier/greevil/greevil_teeth3.vmdl"
+			"6" "models/courier/greevil/greevil_wings3.vmdl"
+		}
+
+		"HasInventory"				"1"
+	}
+	"npc_green_greevil_hero"
+	{
+		"Model"						"models/courier/greevil/greevil.vmdl"
+		"BaseClass"					"npc_dota_creature"
+		"SoundSet"					"Roshan"
+		"Level"						"10"
+		"ModelScale" 				"1.5"
+		// "IsAncient"					"1"
+		"ConsideredHero"			"1"
+
+		"MaterialGroup"				"4"
+
+		"vscripts"					"greevils.lua"
+
+		"AbilityLayout"				"6"
+
+		"ArmorPhysical"				"5"
+		"MagicalResistance"			"50"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"37"
+		"AttackDamageMax"			"45"
+		"AttackRate"				"1.6"
+		"AttackAnimationPoint"		"0.3"
+		"AttackAcquisitionRange"	"600"
+		"AttackRange"				"128"
+		"ProjectileModel"			""
+		"ProjectileSpeed"			""
+
+		"RingRadius"				"70"
+		"HealthBarOffset"			"445"
+
+		"BountyXP"					"750"		
+		"BountyGoldMin"				"150"		
+		"BountyGoldMax"				"400"		
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"320"		
+		"MovementTurnRate"			"0.6"		
+
+		"StatusHealth"				"5500"
+		"StatusHealthRegen"			"20"			
+		"StatusMana"				"1000"		
+		"StatusManaRegen"			"0"		
+
+		"VisionDaytimeRange"		"1400"		
+		"VisionNighttimeRange"		"800"
+
+		// "TeamName"					"DOTA_TEAM_NEUTRALS"							
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_HERO"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Wearables"
+		{
+			"1" "models/courier/greevil/greevil_eyes.vmdl"
+			"2" "models/courier/greevil/greevil_hair1.vmdl"
+			"3" "models/courier/greevil/greevil_horns1.vmdl"
 			"4" "models/courier/greevil/greevil_tail1.vmdl"
+			"5" "models/courier/greevil/greevil_teeth1.vmdl"
+			"6" "models/courier/greevil/greevil_wings2.vmdl"
+		}
+
+		"HasInventory"				"1"
+	}
+	"npc_yeallow_greevil_hero"
+	{
+		"Model"						"models/courier/greevil/greevil.vmdl"
+		"BaseClass"					"npc_dota_creature"
+		"SoundSet"					"Roshan"
+		"Level"						"10"
+		"ModelScale" 				"1.5"
+		// "IsAncient"					"1"
+		"ConsideredHero"			"1"
+
+		"MaterialGroup"				"3"
+
+		"vscripts"					"greevils.lua"
+
+		"AbilityLayout"				"6"
+
+		"ArmorPhysical"				"5"
+		"MagicalResistance"			"50"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"37"
+		"AttackDamageMax"			"45"
+		"AttackRate"				"1.6"
+		"AttackAnimationPoint"		"0.3"
+		"AttackAcquisitionRange"	"600"
+		"AttackRange"				"128"
+		"ProjectileModel"			""
+		"ProjectileSpeed"			""
+
+		"RingRadius"				"70"
+		"HealthBarOffset"			"445"
+
+		"BountyXP"					"750"		
+		"BountyGoldMin"				"150"		
+		"BountyGoldMax"				"400"		
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"320"		
+		"MovementTurnRate"			"0.6"		
+
+		"StatusHealth"				"5500"
+		"StatusHealthRegen"			"20"			
+		"StatusMana"				"1000"		
+		"StatusManaRegen"			"0"		
+
+		"VisionDaytimeRange"		"1400"		
+		"VisionNighttimeRange"		"800"
+
+		// "TeamName"					"DOTA_TEAM_NEUTRALS"							
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_HERO"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Wearables"
+		{
+			"1" "models/courier/greevil/greevil_eyes.vmdl"
+			"2" "models/courier/greevil/greevil_hair2.vmdl"
+			"3" "models/courier/greevil/greevil_horns2.vmdl"
+			"4" "models/courier/greevil/greevil_tail2.vmdl"
+			"5" "models/courier/greevil/greevil_teeth3.vmdl"
+			"6" "models/courier/greevil/greevil_wings1.vmdl"
+		}
+
+		"HasInventory"				"1"
+	}
+	"npc_orange_greevil_hero"
+	{
+		"Model"						"models/courier/greevil/greevil.vmdl"
+		"BaseClass"					"npc_dota_creature"
+		"SoundSet"					"Roshan"
+		"Level"						"10"
+		"ModelScale" 				"1.5"
+		// "IsAncient"					"1"
+		"ConsideredHero"			"1"
+
+		"MaterialGroup"				"2"
+
+		"vscripts"					"greevils.lua"
+
+		"AbilityLayout"				"6"
+
+		"ArmorPhysical"				"5"
+		"MagicalResistance"			"50"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"37"
+		"AttackDamageMax"			"45"
+		"AttackRate"				"1.6"
+		"AttackAnimationPoint"		"0.3"
+		"AttackAcquisitionRange"	"600"
+		"AttackRange"				"128"
+		"ProjectileModel"			""
+		"ProjectileSpeed"			""
+
+		"RingRadius"				"70"
+		"HealthBarOffset"			"445"
+
+		"BountyXP"					"750"		
+		"BountyGoldMin"				"150"		
+		"BountyGoldMax"				"400"		
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"320"		
+		"MovementTurnRate"			"0.6"		
+
+		"StatusHealth"				"5500"
+		"StatusHealthRegen"			"20"			
+		"StatusMana"				"1000"		
+		"StatusManaRegen"			"0"		
+
+		"VisionDaytimeRange"		"1400"		
+		"VisionNighttimeRange"		"800"
+
+		// "TeamName"					"DOTA_TEAM_NEUTRALS"							
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_HERO"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Wearables"
+		{
+			"1" "models/courier/greevil/greevil_eyes.vmdl"
+			"2" "models/courier/greevil/greevil_hair2.vmdl"
+			"3" "models/courier/greevil/greevil_horns3.vmdl"
+			"4" "models/courier/greevil/greevil_tail3.vmdl"
+			"5" "models/courier/greevil/greevil_teeth2.vmdl"
+			"6" "models/courier/greevil/greevil_wings3.vmdl"
+		}
+
+		"HasInventory"				"1"
+	}
+	"npc_white_greevil_hero"
+	{
+		"Model"						"models/courier/greevil/greevil.vmdl"
+		"BaseClass"					"npc_dota_creature"
+		"SoundSet"					"Roshan"
+		"Level"						"10"
+		"ModelScale" 				"1.5"
+		// "IsAncient"					"1"
+		"ConsideredHero"			"1"
+
+		"MaterialGroup"				"7"
+
+		"vscripts"					"greevils.lua"
+
+		"AbilityLayout"				"6"
+
+		"ArmorPhysical"				"5"
+		"MagicalResistance"			"50"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"37"
+		"AttackDamageMax"			"45"
+		"AttackRate"				"1.6"
+		"AttackAnimationPoint"		"0.3"
+		"AttackAcquisitionRange"	"600"
+		"AttackRange"				"128"
+		"ProjectileModel"			""
+		"ProjectileSpeed"			""
+
+		"RingRadius"				"70"
+		"HealthBarOffset"			"445"
+
+		"BountyXP"					"750"		
+		"BountyGoldMin"				"150"		
+		"BountyGoldMax"				"400"		
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"320"		
+		"MovementTurnRate"			"0.6"		
+
+		"StatusHealth"				"5500"
+		"StatusHealthRegen"			"20"			
+		"StatusMana"				"1000"		
+		"StatusManaRegen"			"0"		
+
+		"VisionDaytimeRange"		"1400"		
+		"VisionNighttimeRange"		"800"
+
+		// "TeamName"					"DOTA_TEAM_NEUTRALS"							
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_HERO"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Wearables"
+		{
+			"1" "models/courier/greevil/greevil_eyes.vmdl"
+			"2" "models/courier/greevil/greevil_hair1.vmdl"
+			"3" "models/courier/greevil/greevil_horns1.vmdl"
+			"4" "models/courier/greevil/greevil_tail1.vmdl"
+			"5" "models/courier/greevil/greevil_teeth1.vmdl"
+			"6" "models/courier/greevil/greevil_wings2.vmdl"
+		}
+
+		"HasInventory"				"1"
+	}
+	"npc_black_greevil_hero"
+	{
+		"Model"						"models/courier/greevil/greevil.vmdl"
+		"BaseClass"					"npc_dota_creature"
+		"SoundSet"					"Roshan"
+		"Level"						"10"
+		"ModelScale" 				"1.5"
+		// "IsAncient"					"1"
+		"ConsideredHero"			"1"
+
+		"MaterialGroup"				"8"
+
+		"vscripts"					"greevils.lua"
+
+		"AbilityLayout"				"6"
+
+		"ArmorPhysical"				"5"
+		"MagicalResistance"			"50"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"37"
+		"AttackDamageMax"			"45"
+		"AttackRate"				"1.6"
+		"AttackAnimationPoint"		"0.3"
+		"AttackAcquisitionRange"	"600"
+		"AttackRange"				"128"
+		"ProjectileModel"			""
+		"ProjectileSpeed"			""
+
+		"RingRadius"				"70"
+		"HealthBarOffset"			"445"
+
+		"BountyXP"					"750"		
+		"BountyGoldMin"				"150"		
+		"BountyGoldMax"				"400"		
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"320"		
+		"MovementTurnRate"			"0.6"		
+
+		"StatusHealth"				"5500"
+		"StatusHealthRegen"			"20"			
+		"StatusMana"				"1000"		
+		"StatusManaRegen"			"0"		
+
+		"VisionDaytimeRange"		"1400"		
+		"VisionNighttimeRange"		"800"
+
+		// "TeamName"					"DOTA_TEAM_NEUTRALS"							
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_HERO"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Wearables"
+		{
+			"1" "models/courier/greevil/greevil_eyes.vmdl"
+			"2" "models/courier/greevil/greevil_hair1.vmdl"
+			"3" "models/courier/greevil/greevil_horns2.vmdl"
+			"4" "models/courier/greevil/greevil_tail4.vmdl"
+			"5" "models/courier/greevil/greevil_feathers.vmdl"
+			"6" "models/courier/greevil/greevil_wings4.vmdl"
+			"7" "models/courier/greevil/greevil_teeth4.vmdl"
 		}
 
 		"HasInventory"				"1"
