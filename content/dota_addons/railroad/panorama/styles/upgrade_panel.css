@@ -110,10 +110,14 @@
     margin-bottom: 180px;
 
     flow-children: down;
+
+    transition-duration: 0.3s;
+    transition-property: transform, opacity;
 }
 
 #UpgradePanelDisplay.Disabled {
-	visibility: collapse;
+	opacity: 0;
+	transform: translateX(-50px);
 }
 
 .AlignCenter {
@@ -176,6 +180,12 @@
 
     transition-property: wash-color;
     transition-duration: 0.2s;
+
+    opacity-mask: url("file://{images}/custom_game/button_mask.png");
+}
+
+.Cell.NoMask {
+	opacity-mask: none;
 }
 
 .Cell:hover {

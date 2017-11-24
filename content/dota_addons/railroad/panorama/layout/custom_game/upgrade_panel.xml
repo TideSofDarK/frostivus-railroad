@@ -26,12 +26,12 @@
 			<Label id="Tip" text="Gather candies and spend them as power-ups" class="ValueLabel" style="color: white;"/>
 			<Panel id="Rows" hittest="false">
 				<Panel class="Row" id="Row1" hittest="false">
-					<Panel class="Cell" id="CellAbility1" hittest="true"/>
-					<Panel class="Cell" id="CellAbility2" hittest="true"/>
-					<Panel class="Cell" id="CellAbility3" hittest="true"/>
-					<Panel class="Cell" id="CellAbility4" hittest="true"/>
-					<Panel class="Cell" id="CellAbility5" hittest="true"/>
-					<Panel class="Cell" id="CellAbility6" hittest="true"/>
+					<Panel class="Cell NoMask" id="CellAbility1" hittest="true"/>
+					<Panel class="Cell NoMask" id="CellAbility2" hittest="true"/>
+					<Panel class="Cell NoMask" id="CellAbility3" hittest="true"/>
+					<Panel class="Cell NoMask" id="CellAbility4" hittest="true"/>
+					<Panel class="Cell NoMask" id="CellAbility5" hittest="true"/>
+					<Panel class="Cell NoMask" id="CellAbility6" hittest="true"/>
 				</Panel>
 				<Panel class="Row" id="Row2" hittest="false">
 					<Panel class="Cell" id="CellDamage" hittest="true"/>

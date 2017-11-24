@@ -239,6 +239,14 @@ function GameMode:OnEntityKilled( keys )
 
   local damagebits = keys.damagebits -- This might always be 0 and therefore useless
 
+  local egg = killedUnit:GetKeyValue("Egg")
+  if egg then
+    local new_item = CreateItem(egg, killerEntity, killerEntity)
+    local container = CreateItemOnPositionForLaunch(killerEntity:GetAbsOrigin(), new_item):GetContainedItem():LaunchLoot(false, 120, 1.0, GetGroundPosition(Vector(math.random(-100, 100), math.random(-100, 100), 0) + killerEntity:GetAbsOrigin(), killerEntity))
+    new_item:GetContainer():SetRenderColor(math.random(25, 250), math.random(25, 250), math.random(25, 250))
+    new_item:EmitSound("ui.inv_drop_highvalue")
+  end
+
   -- Put code here to handle when an entity gets killed
 end
 

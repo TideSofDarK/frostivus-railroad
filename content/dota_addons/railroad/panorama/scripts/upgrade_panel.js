@@ -53,6 +53,9 @@ function GetCost(ent, ability) {
 
 function Upgrade() {
 	if (selectedBuff) {
+		if (parseInt($("#CandyCount").text) >= parseInt($("#UpgradeCost").text)) {
+			Game.EmitSound("General.Buy");
+		}
 		GameEvents.SendCustomGameEventToServer("frostivus_upgrade", {id: selectedBuff.id})
 	}
 }
