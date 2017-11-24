@@ -16,7 +16,7 @@ Layer0
 	g_vTexCoordOffset "[0.000 0.000]"
 	g_vTexCoordScale "[1.000 1.000]"
 	TextureColor "materials/models/props_gameplay/halloween_candy_color.png"
-	TextureTintMask "materials/models/props_gameplay/halloween_candy_mask_refl.png"
+	TextureTintMask "materials/models/props_gameplay/halloween_candy_mask.png"
 
 	//---- Self Illum ----
 	TextureSelfIllumMask "materials/default/default_selfillum.tga"
