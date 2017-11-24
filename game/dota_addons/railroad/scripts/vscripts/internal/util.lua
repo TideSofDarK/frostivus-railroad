@@ -204,11 +204,12 @@ function PopupParticle(number, color, duration, caster, preSymbol, postSymbol)
 
   local pidx
 
-  if caster:GetPlayerOwner() == nil then
-    pidx = ParticleManager:CreateParticle(pfxPath, PATTACH_ABSORIGIN_FOLLOW, caster)
-  else
-    pidx = ParticleManager:CreateParticleForPlayer(pfxPath, PATTACH_ABSORIGIN_FOLLOW, caster, caster:GetPlayerOwner())
-  end
+  -- if caster:GetPlayerOwner() == nil then
+  --   pidx = ParticleManager:CreateParticle(pfxPath, PATTACH_ABSORIGIN_FOLLOW, caster)
+  -- else
+  --   pidx = ParticleManager:CreateParticleForPlayer(pfxPath, PATTACH_ABSORIGIN_FOLLOW, caster, caster:GetPlayerOwner())
+  -- end
+  pidx = ParticleManager:CreateParticle(pfxPath, PATTACH_ABSORIGIN_FOLLOW, caster)
 
   local color = color
   local lifetime = duration
