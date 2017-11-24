@@ -107,16 +107,11 @@ function GameMode:OnHeroInGame(hero)
 
   -- This line for example will set the starting gold of every hero to 500 unreliable gold
   --hero:SetGold(500, false)
-
-  -- These lines will create an item and add it to the player, effectively ensuring they start with the item
-  local item = CreateItem("item_example_item", hero, hero)
-  hero:AddItem(item)
-
   hero.buff_dummy = CreateUnitByName("npc_dummy_unit", Vector(25000, 25000, 25000), true, nil, hero, hero:GetTeam())
 
   for k,v in pairs(GameMode.BuffsKVs) do
     hero.buff_dummy:AddAbility(k)
-    CustomNetTables:SetTableValue("players", tostring(hero:GetPlayerOwnerID()), {buff_dummy = hero.buff_dummy:GetEntityIndex(), candies = 1400})
+    CustomNetTables:SetTableValue("players", tostring(hero:GetPlayerOwnerID()), {buff_dummy = hero.buff_dummy:GetEntityIndex(), candies = 0})
   end
 
   GameMode.assignedPlayerHeroes = GameMode.assignedPlayerHeroes or {}
@@ -138,12 +133,22 @@ end
 function GameMode:OnGameInProgress()
   DebugPrint("[BAREBONES] The game has officially begun")
 
+  local wagon_start = Entities:FindByName(nil, "wagon_spawn"):GetAbsOrigin()
+
   Timers:CreateTimer(2 * 60, function (  )
     if GameRules:GetDOTATime(false,false) >= 20 * 60 then
       return nil
     end
     if not IsValidEntity(Railroad.wagon) then
-      CreateUnitByName("npc_wagon", Entities:FindByName(nil, "wagon_spawn"):GetAbsOrigin(), true, nil, nil, DOTA_TEAM_NEUTRALS)
+      local p = ParticleManager:CreateParticle("particles/wagon_spawn.vpcf", PATTACH_CUSTOMORIGIN, nil)
+      ParticleManager:SetParticleControl(p, 0, wagon_start)
+      EmitAnnouncerSound("bucket.spawn_wagon")
+      Timers:CreateTimer(0.2, function ()
+        CreateUnitByName("npc_wagon", wagon_start, true, nil, nil, DOTA_TEAM_NEUTRALS)
+        Notifications:TopToAll({text="Wagon has been spawned!", duration=2, class="NotificationMessage"})
+        AddFOWViewer(2, wagon_start, 400, 4.0, false)
+        AddFOWViewer(3, wagon_start, 400, 4.0, false)
+      end)
     end
 
     Timers:CreateTimer(15, function (  )
@@ -176,6 +181,7 @@ function GameMode:InitGameMode()
   -- Commands can be registered for debugging purposes or as functions that can be called by the custom Scaleform UI
   Convars:RegisterCommand( "command_example", Dynamic_Wrap(GameMode, 'ExampleConsoleCommand'), "", FCVAR_CHEAT )
   Convars:RegisterCommand( "fight", Dynamic_Wrap(GameMode, 'Fight'), "", FCVAR_CHEAT )
+  Convars:RegisterCommand( "candies", Dynamic_Wrap(GameMode, 'Candies'), "", FCVAR_CHEAT )
 
   GameMode.EggsKVs = LoadKeyValues("scripts/kv/greevils.kv")
   GameMode.BuffsKVs = LoadKeyValues("scripts/npc/railroad/abilities/buffs.txt")
@@ -198,7 +204,22 @@ function GameMode:InitGameMode()
   Railroad:Init()
 end
 
--- This is an example console command
+function GameMode:Candies(number)
+  print( '******* Example Console Command ***************' )
+  local cmdPlayer = Convars:GetCommandClient()
+  if cmdPlayer then
+    local playerID = cmdPlayer:GetPlayerID()
+    if playerID ~= nil and playerID ~= -1 then
+      -- Do something here for the player who called this command
+      local hero = cmdPlayer:GetAssignedHero()
+      
+      Railroad:GiveCandiesToTeam(hero:GetTeamNumber(), tonumber(number), false)
+    end
+  end
+
+  print( '*********************************************' )
+end
+
 function GameMode:ExampleConsoleCommand()
   print( '******* Example Console Command ***************' )
   local cmdPlayer = Convars:GetCommandClient()

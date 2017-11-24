@@ -30,6 +30,7 @@ function Railroad:OnUpgrade(keys)
 
 	local ab = hero.buff_dummy:FindAbilityByName(tostring(string.gsub(ability_id, "Cell", "buff_")))
 	if ab then
+		if ab:GetLevel() >= ab:GetMaxLevel() then return end
 		local cost = ab:GetLevelSpecialValueFor("cost", ab:GetLevel())
 		if old_data.candies >= cost then
 			old_data.candies = old_data.candies - cost
@@ -315,6 +316,10 @@ function Wagon( keys )
 				    		caster:EmitSound("Hero_Techies.Suicide")
 				    		local p = ParticleManager:CreateParticle("particles/econ/items/techies/techies_arcana/techies_suicide_arcana.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
 				    		ParticleManager:SetParticleControl(p, 3, caster:GetAbsOrigin())
+				    		Timers:CreateTimer(4.0, function (  )
+				    			caster:RemoveSelf()
+				    		end)
+				    		Railroad.wagon = nil
 				    	end)
 
 				    	Timers:RemoveTimer(movement)
@@ -564,13 +569,13 @@ function OnBucketThink( keys )
 				local hero = GameMode.assignedPlayerHeroes[pID]
 
 				if hero then
-					PlayerResource:ModifyGold(pID, 4, true, 0)
+					PlayerResource:ModifyGold(pID, 3, true, 0)
 					hero:AddExperience(3, 0, false, true)
 				end
 			end
 			Railroad:GiveCandiesToTeam(2, ability:GetAbilitySpecial("candies"))
 			PopupParticle(ability:GetAbilitySpecial("candies"), Vector(200,60,55), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
-			PopupParticle(4, Vector(200,200,55), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
+			PopupParticle(3, Vector(200,200,55), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
 			PopupParticle(3, Vector(200,200,200), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
 			AddFOWViewer(2, caster:GetAbsOrigin(), 400, 2.0, false)
 			ParticleManager:CreateParticle("particles/bucket_impact.vpcf", PATTACH_OVERHEAD_FOLLOW, caster)
@@ -587,13 +592,13 @@ function OnBucketThink( keys )
 				local hero = GameMode.assignedPlayerHeroes[pID]
 
 				if hero then
-					PlayerResource:ModifyGold(pID, 4, true, 0)
+					PlayerResource:ModifyGold(pID, 3, true, 0)
 					hero:AddExperience(3, 0, false, true)
 				end
 			end
 			Railroad:GiveCandiesToTeam(3, ability:GetAbilitySpecial("candies"))
 			PopupParticle(ability:GetAbilitySpecial("candies"), Vector(200,60,55), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
-			PopupParticle(4, Vector(200,200,55), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
+			PopupParticle(3, Vector(200,200,55), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
 			PopupParticle(3, Vector(200,200,200), 1.0, caster, POPUP_SYMBOL_PRE_PLUS)
 			AddFOWViewer(3, caster:GetAbsOrigin(), 400, 2.0, false)
 			ParticleManager:CreateParticle("particles/bucket_impact.vpcf", PATTACH_OVERHEAD_FOLLOW, caster)
