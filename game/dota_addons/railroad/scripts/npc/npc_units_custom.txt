@@ -1,5 +1,7 @@
 #base "railroad\units\wagon.txt"
 #base "railroad\units\greevils.txt"
+#base "railroad\units\bosses.txt"
+#base "railroad\units\greevils_heroes.txt"
 
 // Dota Units File
 "DOTAUnits"
@@ -116,6 +118,9 @@
         "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
 
         "TeamName"                  "DOTA_TEAM_GOODGUYS"
+
+        "VisionDaytimeRange"    "0"
+        "VisionNighttimeRange"    "0"
     }
 
     "npc_bucket"

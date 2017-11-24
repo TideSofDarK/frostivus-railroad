@@ -81,7 +81,7 @@
 			{}
 		}
 	}
-	"item_yeallow_egg"
+	"item_yellow_egg"
 	{
 	    "ID"    "1111"
 	    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"

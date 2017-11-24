@@ -1,6 +1,7 @@
 #base "railroad\abilities\wagon.txt"
 #base "railroad\abilities\bucket.txt"
 #base "railroad\abilities\buffs.txt"
+#base "railroad\abilities\bosses.txt"
 
 // Dota Abilities Override File
 "DOTAAbilities"

@@ -2,6 +2,32 @@ function GetSpecial( ability, name )
   return ability:GetLevelSpecialValueFor(name,ability:GetLevel()-1)
 end
 
+function GetRandomElement(list, checker, return_key)
+  local new_table = {}
+
+  for k,v in pairs(list) do
+    if (checker and checker(v) == false) then
+
+    else
+      new_table[k] = v
+    end
+  end
+
+  local count = GetTableLength(new_table)
+  local seed = math.random(1, count)
+  local i = 1
+  
+  for k,v in pairs(new_table) do
+    if i == seed then
+      if return_key then
+        return k
+      end
+      return v
+    end
+    i = i + 1
+  end
+end
+
 function GetPathLength( path )
   local length = 0
   for i=1,#path do

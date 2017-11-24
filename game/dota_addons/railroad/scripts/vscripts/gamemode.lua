@@ -150,7 +150,8 @@ function GameMode:InitGameMode()
   DebugPrint('[BAREBONES] Starting to load Barebones gamemode...')
 
   -- Commands can be registered for debugging purposes or as functions that can be called by the custom Scaleform UI
-  Convars:RegisterCommand( "command_example", Dynamic_Wrap(GameMode, 'ExampleConsoleCommand'), "A console command example", FCVAR_CHEAT )
+  Convars:RegisterCommand( "command_example", Dynamic_Wrap(GameMode, 'ExampleConsoleCommand'), "", FCVAR_CHEAT )
+  Convars:RegisterCommand( "fight", Dynamic_Wrap(GameMode, 'Fight'), "", FCVAR_CHEAT )
 
   GameMode.EggsKVs = LoadKeyValues("scripts/kv/greevils.kv")
   GameMode.BuffsKVs = LoadKeyValues("scripts/npc/railroad/abilities/buffs.txt")
@@ -191,6 +192,27 @@ function GameMode:ExampleConsoleCommand()
 
   print( '*********************************************' )
 end
+
+function GameMode:Fight()
+  print( '******* Example Console Command ***************' )
+  local cmdPlayer = Convars:GetCommandClient()
+  if cmdPlayer then
+    local playerID = cmdPlayer:GetPlayerID()
+    if playerID ~= nil and playerID ~= -1 then
+      -- Do something here for the player who called this command
+      local hero = cmdPlayer:GetAssignedHero()
+      
+      Railroad.BOSS_RADIANT:RemoveModifierByName("modifier_invulnerable")
+      Railroad.BOSS_RADIANT:RemoveModifierByName("modifier_rooted")
+
+      Railroad.BOSS_DIRE:RemoveModifierByName("modifier_invulnerable")
+      Railroad.BOSS_DIRE:RemoveModifierByName("modifier_rooted")
+    end
+  end
+
+  print( '*********************************************' )
+end
+
 
 function GameMode:DamageFilter( filter_table )
     local victim = EntIndexToHScript(filter_table["entindex_victim_const"])

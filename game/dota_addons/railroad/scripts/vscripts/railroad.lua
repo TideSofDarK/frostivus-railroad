@@ -5,6 +5,9 @@ end
 function Railroad:Init()
     CustomGameEventManager:RegisterListener( "frostivus_upgrade", Dynamic_Wrap(Railroad, 'OnUpgrade'))
 
+    Railroad.BOSS_RADIANT = Entities:FindByName(nil, "npc_ice_queen")
+    Railroad.BOSS_DIRE = Entities:FindByName(nil, "npc_ice_king")
+
     Railroad.RICH_GREEVIL_WAYPOINTS_1 = {}
     for i=1,7 do
     	table.insert(Railroad.RICH_GREEVIL_WAYPOINTS_1, Entities:FindByName(nil, "rich_greevil_waypoint1_"..tostring(i)):GetAbsOrigin())
@@ -463,7 +466,7 @@ function OnBucketThink( keys )
 	if caster.particles then
 		local radius = ability:GetAbilitySpecial("radius")
 
-		local units = FindUnitsInRadius( caster:GetTeam(), caster:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_INVULNERABLE, FIND_ANY_ORDER, false )
+		local units = FindUnitsInRadius( caster:GetTeam(), caster:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_INVULNERABLE, FIND_ANY_ORDER, false )
 		local teams = {}
 		for _,v in pairs(units) do
 			teams[v:GetTeamNumber()] = true
@@ -560,4 +563,33 @@ function EatEgg( keys )
 			end
 		end)
 	end)
+end
+
+function SpawnDragons( keys )
+	local caster = keys.caster
+	local ability = keys.ability
+
+	local pos1 = caster:GetAbsOrigin() + Vector(-256, 256, 0)
+	local pos2 = caster:GetAbsOrigin() + Vector(-256, -256, 0)
+
+	local fire = CreateUnitByName("npc_fire_dragon", pos1, true, nil, nil, caster:GetTeamNumber())
+	fire:SetMaterialGroup("1")
+	ParticleManager:CreateParticle("particles/units/heroes/hero_dragon_knight/dragon_knight_transform_red.vpcf", PATTACH_ABSORIGIN_FOLLOW, fire)
+
+	local toxic = CreateUnitByName("npc_toxic_dragon", pos2, true, nil, nil, caster:GetTeamNumber())
+	ParticleManager:CreateParticle("particles/units/heroes/hero_dragon_knight/dragon_knight_transform_green.vpcf", PATTACH_ABSORIGIN_FOLLOW, toxic)
+
+	caster:EmitSound("Hero_DragonKnight.DragonTail.Cast.Kindred")
+end
+
+function SpawnDragon( keys )
+	local caster = keys.caster
+	local ability = keys.ability
+
+	local ice = CreateUnitByName("npc_ice_dragon", caster:GetAbsOrigin() + Vector(256, 0, 0), true, nil, nil, caster:GetTeamNumber())
+	ice:SetMaterialGroup("2")
+
+	ParticleManager:CreateParticle("particles/units/heroes/hero_dragon_knight/dragon_knight_transform_blue.vpcf", PATTACH_ABSORIGIN_FOLLOW, ice)
+
+	caster:EmitSound("Hero_DragonKnight.DragonTail.Cast.Kindred")
 end
