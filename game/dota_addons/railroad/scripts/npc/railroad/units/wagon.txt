@@ -6,7 +6,7 @@
 	{
 		"BaseClass"					"npc_dota_creature"
 		"Model"						"models/wagon/wagon.vmdl"
-		"ModelScale"				"1.0"
+		"ModelScale"				"1.15"
 
 		"SoundSet"					"Tower.Fire"
 
@@ -47,5 +47,10 @@
 
 		"VisionDaytimeRange"		"800"
 		"VisionNighttimeRange"		"800"
+
+		"TeamName"					"DOTA_TEAM_NEUTRALS"							
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_HERO"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
 	}
 }

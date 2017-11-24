@@ -158,6 +158,9 @@
         "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
 
         "TeamName"                  "DOTA_TEAM_NEUTRALS"
+
+        "VisionDaytimeRange"    "0"
+        "VisionNighttimeRange"    "0"
     }
 
     "npc_rich_greevil"
@@ -168,7 +171,7 @@
         "Model"             "models/creeps/greevil_shopkeeper/greevil_shopkeeper.vmdl"
         "SoundSet"          "Creep_Good_Range"
         "Level"             "10"
-        "HealthBarOffset"   "150"
+        "HealthBarOffset"   "175"
 
         // Abilities
         //----------------------------------------------------------------

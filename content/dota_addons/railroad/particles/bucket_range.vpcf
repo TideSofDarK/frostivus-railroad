@@ -94,18 +94,11 @@
 			m_ChildRef = resource:"particles/bucket_range_a.vpcf"
 		},
 		{
-			m_ChildRef = resource:"particles/bucket_range_b.vpcf"
-			m_bDisableChild = true
-		},
-		{
 			m_ChildRef = resource:"particles/bucket_range_c.vpcf"
 		},
 		{
-			m_ChildRef = resource:"particles/bucket_range_d.vpcf"
-			m_bDisableChild = true
-		},
-		{
 			m_ChildRef = resource:"particles/bucket_range_e.vpcf"
+			m_bDisableChild = true
 		},
 	]
 	m_controlPointConfigurations = 

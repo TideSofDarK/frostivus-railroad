@@ -5,10 +5,16 @@ end
 function Railroad:Init()
     CustomGameEventManager:RegisterListener( "frostivus_upgrade", Dynamic_Wrap(Railroad, 'OnUpgrade'))
 
-    Railroad.RICH_GREEVIL_WAYPOINTS = {}
+    Railroad.RICH_GREEVIL_WAYPOINTS_1 = {}
     for i=1,7 do
-    	table.insert(Railroad.RICH_GREEVIL_WAYPOINTS, Entities:FindByName(nil, "rich_greevil_waypoint_"..tostring(i)):GetAbsOrigin())
+    	table.insert(Railroad.RICH_GREEVIL_WAYPOINTS_1, Entities:FindByName(nil, "rich_greevil_waypoint1_"..tostring(i)):GetAbsOrigin())
     end
+    Railroad.RICH_GREEVIL_WAYPOINTS_2 = {}
+    for i=1,7 do
+    	table.insert(Railroad.RICH_GREEVIL_WAYPOINTS_2, Entities:FindByName(nil, "rich_greevil_waypoint2_"..tostring(i)):GetAbsOrigin())
+    end
+    
+    CreateUnitByName("npc_wagon", Entities:FindByName(nil, "wagon_spawn"):GetAbsOrigin(), true, nil, nil, DOTA_TEAM_NEUTRALS)
 end
 
 function Railroad:OnUpgrade(keys)
@@ -72,10 +78,18 @@ function Railroad:GiveCandiesToTeam(team, candies, particle)
 end
 
 function Railroad:SpawnRichGreevil()
+	local points
+
+	if math.random(0,1) == 0 then
+		points = Railroad.RICH_GREEVIL_WAYPOINTS_1
+	else
+		points = Railroad.RICH_GREEVIL_WAYPOINTS_2
+	end
+
 	if IsValidEntity(Railroad.rich_greevil) then
 		Railroad.rich_greevil:RemoveSelf()
 	end
-	Railroad.rich_greevil = CreateUnitByName("npc_rich_greevil", Railroad.RICH_GREEVIL_WAYPOINTS[1], true, nil, nil, DOTA_TEAM_NEUTRALS)
+	Railroad.rich_greevil = CreateUnitByName("npc_rich_greevil", points[1], true, nil, nil, DOTA_TEAM_NEUTRALS)
 
 	local point = 1
 	Timers:CreateTimer(function()
@@ -87,7 +101,7 @@ function Railroad:SpawnRichGreevil()
 			if point > 7 then
 				point = 1
 			end
-			Railroad.rich_greevil:MoveToPosition(Railroad.RICH_GREEVIL_WAYPOINTS[point])
+			Railroad.rich_greevil:MoveToPosition(points[point])
 		else
 			
 		end
@@ -350,6 +364,10 @@ function OnSnowballAttacked( keys )
 	ball.initial = ball:GetAbsOrigin()
 	local target = GetGroundPosition(ball:GetAbsOrigin() + Vector(0, -700, 0), ball) + Vector(0, 0, offset)
 
+	if ball:GetTeamNumber() == 2 then
+		target = GetGroundPosition(ball:GetAbsOrigin() + Vector(0, 700, 0), ball) + Vector(0, 0, offset)
+	end
+
 	Physics:Unit(ball)
 
 	ball:SetPhysicsFriction (0.05,0.05)
@@ -360,7 +378,7 @@ function OnSnowballAttacked( keys )
 	local direction = target - ball.initial
 	direction = direction:Normalized()
 
-	ball:AddPhysicsVelocity((direction * 750) + Vector(0,0,1500))
+	ball:AddPhysicsVelocity((direction * 1000) + Vector(0,0,1500))
 	ball:SetPhysicsAcceleration(Vector(0,0,-1400))
 
 	ball.collider = ball:AddColliderFromProfile("blocker")
@@ -376,6 +394,12 @@ function OnSnowballAttacked( keys )
 
 	StartSoundEvent("Hero_Tusk.Snowball.Loop", ball)
 
+	if ball:GetTeamNumber() == 3 then
+		ball:SetTeam(2)
+	else
+		ball:SetTeam(3)
+	end
+
 	local i = 0
 	ball:OnPhysicsFrame(function(unit)
 		local distance = (target - unit:GetAbsOrigin()):Length()
@@ -387,12 +411,6 @@ function OnSnowballAttacked( keys )
 			ball:OnPhysicsFrame(nil)
 			StopSoundEvent("Hero_Tusk.Snowball.Loop", ball)
 			EmitSoundOn("Hero_Tusk.Snowball.ProjectileHit", ball)
-
-			if ball:GetTeamNumber() == 3 then
-				ball:SetTeam(2)
-			else
-				ball:SetTeam(3)
-			end
 
 			ball:RemoveModifierByName("modifier_invulnerable")
 			ball:RemoveModifierByName("modifier_snowball_onattacked")
@@ -440,10 +458,12 @@ function OnBucketThink( keys )
 	local caster = keys.caster
 	local ability = keys.ability
 
+	if GameRules:State_Get() ~= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then return end
+
 	if caster.particles then
 		local radius = ability:GetAbilitySpecial("radius")
 
-		local units = FindUnitsInRadius( caster:GetTeam(), caster:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, FIND_ANY_ORDER, false )
+		local units = FindUnitsInRadius( caster:GetTeam(), caster:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_INVULNERABLE, FIND_ANY_ORDER, false )
 		local teams = {}
 		for _,v in pairs(units) do
 			teams[v:GetTeamNumber()] = true
