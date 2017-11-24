@@ -657,7 +657,7 @@
     //-------------------------------------------------------------------------------------------------------------
     "BaseClass"              "winter_wyvern_cold_embrace"                            // unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
     "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-    "Abilwinter_wyvern_cold_embraceityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
     "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
     "SpellImmunityType"       "SPELL_IMMUNITY_ALLIES_YES"
     "SpellDispellableType"      "SPELL_DISPELLABLE_NO"
@@ -3450,6 +3450,60 @@
     //-------------------------------------------------------------------------------------------------------------
     "AbilityCastPoint"        "0.0 0.0 0.0 0.0"
     "AbilityCastAnimation"      "ACT_INVALID"
+  }
+   "greevil_void_time_walk"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "BaseClass"          "faceless_void_time_walk"                            // unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_NO"
+    "AbilitySound"          "Hero_FacelessVoid.TimeWalk"
+
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastRange"        "0"
+    "AbilityCastPoint"        "0.3"
+
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"       "24 18 12 6"
+
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "40"
+
+    // Stats
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityModifierSupportValue" "0.25"  // mostly about the blink
+
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "speed"         "3000"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "range"         "675"
+        "LinkedSpecialBonus"  "special_bonus_unique_faceless_void"
+      }
+      "03"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "backtrack_duration"  "2.0"
+      }
+      "04"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "radius"        "300"
+      }
+    }
+    "AbilityCastAnimation"    "ACT_DOTA_CAST_ABILITY_1"
   }
 }
 
