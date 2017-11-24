@@ -265,10 +265,14 @@ function Wagon( keys )
 	local units = FindUnitsInRadius(caster:GetTeamNumber(),caster:GetAbsOrigin(),nil,GetSpecial(ability, "radius"),DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_INVULNERABLE, FIND_ANY_ORDER, false)
 	local teams = {}
 	for k,v in pairs(units) do
-		teams[v:GetTeam()] = true
-		if v:GetUnitName() == "npc_snowball" or teams[2] and teams[3] then
-			units = {}
-			break
+		if v:GetUnitName() == "npc_wagon" then
+			table.remove(units, k)
+		else
+			teams[v:GetTeam()] = true
+			if v:GetUnitName() == "npc_snowball" or teams[2] and teams[3] then
+				units = {}
+				break
+			end
 		end
 	end
 	for k,v in pairs(units) do
@@ -359,6 +363,11 @@ function Wagon( keys )
 					    next_point = GetGroundPosition(caster.path[caster.path_point + team_modifier],caster)
 				    end
 
+				    if not caster.moved_last_frame then
+				    	StartSoundEvent("bucket.wagon_loop", caster)
+				    	caster.moved_last_frame = true
+				    end
+
 				    local ignore_z = (team == 3 and caster.path[caster.path_point].z == caster.path[caster.path_point + 1].z) or (team == 2 and caster.path[caster.path_point + team_modifier].z == caster.path[caster.path_point].z)
 				    local look_at_target = UnitLookAtPoint( caster, next_point, true, ignore_z )
 				    look_at_target.z = look_at_target.z * team_modifier
@@ -398,6 +407,8 @@ function Wagon( keys )
 	end
 
 	if #units == 0 then
+		caster.moved_last_frame = false
+		StopSoundEvent("bucket.wagon_loop", caster)
 		ParticleManager:SetParticleControl(caster.area, 2, Vector(128,0,0))
 	end
 end
