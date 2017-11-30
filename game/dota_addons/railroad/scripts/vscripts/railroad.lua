@@ -91,19 +91,20 @@ function Railroad:SpawnRichGreevil()
 	if IsValidEntity(Railroad.rich_greevil) then
 		Railroad.rich_greevil:RemoveSelf()
 	end
-	Railroad.rich_greevil = CreateUnitByName("npc_rich_greevil", points[1], true, nil, nil, DOTA_TEAM_NEUTRALS)
+	local unit = CreateUnitByName("npc_rich_greevil", points[1], true, nil, nil, DOTA_TEAM_NEUTRALS)
+	Railroad.rich_greevil = unit
 
 	local point = 1
 	Timers:CreateTimer(function()
-		if not IsValidEntity(Railroad.rich_greevil) then
+		if not IsValidEntity(unitl) then
 			return
 		end
-		if Railroad.rich_greevil:IsIdle() then
+		if unit:IsIdle() then
 			point = point + 1
 			if point > 7 then
 				point = 1
 			end
-			Railroad.rich_greevil:MoveToPosition(points[point])
+			unit:MoveToPosition(points[point])
 		else
 			
 		end
@@ -240,9 +241,9 @@ function Wagon( keys )
 
 	if not IsValidEntity(ability) then return end
 
-	if caster:IsNull() then return end
+	if not IsValidEntity(caster) then return end
 
-	if not Railroad.wagon_path then
+	if not Railroad.wagon then
 		InitWagon( keys )
 	end
 
@@ -275,6 +276,7 @@ function Wagon( keys )
 			end
 		end
 	end
+
 	for k,v in pairs(units) do
 		if v:IsRealHero() then
 			ParticleManager:SetParticleControl(caster.area, 2, Vector(0,128,0))
@@ -307,13 +309,15 @@ function Wagon( keys )
 				    -- end
 
 				    local function Destroy()
+				    	StopSoundEvent("bucket.wagon_loop", caster)
+
 				    	local p = ParticleManager:CreateParticle("particles/frostivus_gameplay/fireworks.vpcf", PATTACH_CUSTOMORIGIN, caster)
 				    	ParticleManager:SetParticleControl(p, 3, caster:GetAbsOrigin() + Vector(0,0,300))
 				    	ParticleManager:SetParticleControlOrientation(p, 3, Vector(0, 1, 0), Vector(1, 0, 0), Vector(0,1,0))
 
 						caster:FindAbilityByName("railroad_wagon"):RemoveSelf()
 
-						ParticleManager:DestroyParticle(caster.area, false)
+						ParticleManager:DestroyParticle(caster.area, true)
 				    	
 				    	Timers:CreateTimer(5.0, function ()
 				    		caster:SetModel("models/development/invisiblebox.vmdl")
@@ -384,6 +388,11 @@ function Wagon( keys )
 				    end
 				   
 				    new_position = (step_distance * direction_to_next_point) + new_position
+				    new_position.y = caster.path[1].y
+
+				    if GridNav:IsBlocked(new_position) then
+				        break
+				    end
 
 				    if step_distance == distance_to_next_point then
 				        caster.path_point = caster.path_point + team_modifier
@@ -650,6 +659,8 @@ function EatEgg( keys )
 			ab:SetHidden(false)
 		end
 
+		unit:CreatureLevelUp(caster:GetLevel())
+
 		PlayerResource:NewSelection(caster:GetPlayerOwnerID(), unit:GetEntityIndex())
 		caster:SetSelectionOverride(unit)
 
@@ -719,4 +730,27 @@ function SpawnDragon( keys )
 		ice:MoveToTargetToAttack(Railroad.BOSS_RADIANT)
 		return 1.0
 	end)
+end
+
+--[[Author: Pizzalol
+	Date: 24.02.2015.
+	Checks if the target is owned by the caster or if its the caster itself
+	If yes then it applies the scorched earth buff]]
+function ScorchedEarthCheck( keys )
+	local caster = keys.caster
+	local target = keys.target
+	local ability = keys.ability
+	local modifier = keys.modifier
+
+	if target:GetOwner() == caster or target == caster then
+		ability:ApplyDataDrivenModifier(caster, target, modifier, {})
+	end
+end
+
+-- Stops the sound from playing
+function StopSound( keys )
+	local target = keys.target
+	local sound = keys.sound
+
+	StopSoundEvent(sound, target)
 end
