@@ -63,12 +63,11 @@
 			    "Wearable1" { "ItemDef" "4386" }
 			    "Wearable2" { "ItemDef" "4389" }
 			    "Wearable3" { "ItemDef" "4420" }
-			    "Wearable4" { "ItemDef" "4540" }
+			    "Wearable4" { "ItemDef" "8698" }
 			    "Wearable5" { "ItemDef" "4383" }
 			}
 		}
 	}
-
 	"npc_ice_king"
 	{
 		"Model"						"models/heroes/abaddon/abaddon.vmdl"

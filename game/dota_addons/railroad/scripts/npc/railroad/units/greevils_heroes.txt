@@ -495,8 +495,8 @@
 		"MovementSpeed"				"320"		
 		"MovementTurnRate"			"0.6"		
 
-		"StatusHealth"				"5500"
-		"StatusHealthRegen"			"20"			
+		"StatusHealth"				"1351"
+		"StatusHealthRegen"			"3"			
 		"StatusMana"				"1000"		
 		"StatusManaRegen"			"0"		
 
